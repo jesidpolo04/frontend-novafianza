@@ -1,1 +1,182 @@
-<p>pagina-reporte-saldos-cartera works!</p>
+<app-filtros-saldos-cartera></app-filtros-saldos-cartera>
+<div class="d-flex p-3 align-items-center fondo-gris-oscuro">
+    <span class="texto-gris fs-14px">
+        <b>Periodo de consulta: </b> Enero de 2022 al Enero de 2023 
+    </span>
+    <span class="ms-auto">
+        <button class="boton primario relleno alterno">Exportar datos</button>
+    </span>
+</div>
+<div class="contenedor-resumen d-flex p-3 align-items-stretch flex-gap-10">
+    <div class="texto-resumen-general">
+        Resumen general:
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">ICV 30+</span>
+        <span class="valor">$ 400.000.000</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">ICV 60+</span>
+        <span class="valor">$ 400.000.000</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">ICV 120+</span>
+        <span class="valor">$ 400.000.000</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">ICV 150+</span>
+        <span class="valor">$ 400.000.000</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Número de créditos</span>
+        <span class="valor">350</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Reclamaciones</span>
+        <span class="valor">500.000.000</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Vlr colocación</span>
+        <span class="valor">1.000.000.000</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Crédito máximo</span>
+        <span class="valor">$ 100.000.000</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Ticket promedio</span>
+        <span class="valor">40.000.000</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Plazo</span>
+        <span class="valor">360</span>
+    </div>
+
+</div>
+
+<div class="p-3">
+    <div class="row mx-0 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fs-14px fw-semibold">Rodamiento de cartera (Flow rate)</span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table tabla-flow-rate fs-14px">
+                            <thead>
+                                <tr>
+                                    <th>Año mes cierre</th>
+                                    <th>0 - 30 días</th>
+                                    <th>31 - 60 días</th>
+                                    <th>61 - 90 días</th>
+                                    <th>91 - 120 días</th>
+                                    <th>121 - 150 días</th>
+                                    <th>151 - 180 días</th>
+                                    <th>181 - 210 días</th>
+                                    <th>211 - 240 días</th>
+                                    <th>241 - 270 días</th>
+                                    <th>271 - 300 días</th>
+                                    <th>301 - 330 días</th>
+                                    <th>331 - 360 días</th>
+                                    <th>361 + días</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2022 - 09</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                    <td>0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-0 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fs-14px fw-semibold">Cosechas</span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table tabla-flow-rate fs-14px">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Vlr coloc</th>
+                                    <th>Núm créditos</th>
+                                    <th>Ticket</th>
+                                    <th>Plazo</th>
+                                    <th>Saldo</th>
+                                    <th>Mes 0</th>
+                                    <th>Mes 1</th>
+                                    <th>Mes 2</th>
+                                    <th>Mes 3</th>
+                                    <th>Mes 4</th>
+                                    <th>Mes 5</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2022 - 09</td>
+                                    <td>$ 1.036</td>
+                                    <td>563</td>
+                                    <td>$1.8</td>
+                                    <td>23</td>
+                                    <td>$ 1.036</td>
+                                    <td class="exitoso">0,00%</td>
+                                    <td class="exitoso">0,00%</td>
+                                    <td class="riesgo">12,67%</td>
+                                    <td class="riesgo">14,85%</td>
+                                    <td class="riesgo">16,08%</td>
+                                    <td class="peligro">30,02%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-0 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fs-14px fw-semibold">
+                        Evolución saldos de cartera
+                    </span>
+                </div>
+                <div class="card-body">
+                    <app-grafico-barras-lineas></app-grafico-barras-lineas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

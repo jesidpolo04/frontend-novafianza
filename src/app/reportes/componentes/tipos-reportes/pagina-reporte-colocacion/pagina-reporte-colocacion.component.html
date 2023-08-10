@@ -1,9 +1,176 @@
-<app-filtros-colocacion></app-filtros-colocacion>
-<div class="d-flex p-3 align-items-center">
-    <span class="texto-gris fs-14px">
-        <b>Periodo de consulta: </b> Enero de 2022 al Enero de 2023 
+<app-filtros-colocacion (nuevosFiltros)="obtenerColocacion($event)"></app-filtros-colocacion>
+<div class="d-flex p-3 align-items-center fondo-gris-oscuro">
+    <span class="texto-gris fs-14px" *ngIf="filtros">
+        <b>Periodo de consulta: </b> {{ filtros.fechaInicioCorte }} al {{ filtros.fechaFinalCorte }} 
     </span>
     <span class="ms-auto">
         <button class="boton primario relleno alterno">Exportar datos</button>
     </span>
+</div>
+<div class="contenedor-resumen d-flex p-3 align-items-stretch flex-gap-10" *ngIf="reporte">
+    <div class="texto-resumen-general">
+        Resumen general:
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Valor colocación</span>
+        <span class="valor">{{ 0 | currency: '' : 'symbol' : '1.0-0' }}</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Número de créditos</span>
+        <span class="valor">{{ reporte.resumen.numeroCreditos | currency: '' : '' : '1.0-0' }}</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Número de clientes</span>
+        <span class="valor">{{ reporte.resumen.numeroClientes | currency: '' : '' : '1.0-0' }}</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Ticket promedio</span>
+        <span class="valor">{{ reporte.resumen.ticketPromedio | currency: '' : 'symbol': '1.0-0' }}</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Plazo promedio ponderado</span>
+        <span class="valor">{{ reporte.resumen.plazoPromedioPonderado }} días</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Créditos por cliente</span>
+        <span class="valor">{{ reporte.resumen.creditosPorCliente }}</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Cobertura inicial sobre colocación</span>
+        <span class="valor">{{ reporte.resumen.coberturaSobreColocacion | percent }}</span>
+    </div>
+
+    <div class="resumen">
+        <span class="titulo">Crédito máximo</span>
+        <span class="valor">{{ reporte.resumen.creditoMaximo | currency: '' : 'symbol' : '1.0-0' }}</span>
+    </div>
+
+</div>
+
+<div class="p-3">
+    <div class="row mx-0 mb-3">
+        <div class="col-md-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fw-semibold fs-14px">Colocación (Valores representados en millones)</span>
+                </div>
+                <div class="card-body">
+                    <app-grafico-lineas 
+                    [cargando]="cargandoReporte" 
+                    [grafico]="reporte ? reporte.colocacion: undefined"></app-grafico-lineas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fw-semibold fs-14px">Fianzas netas (Valores representados en millones)</span>
+                </div>
+                <div class="card-body">
+                    <app-grafico-lineas 
+                    [cargando]="cargandoReporte" 
+                    [grafico]="reporte ? reporte.fianzasNetas : undefined"></app-grafico-lineas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-0 mb-3">
+        <div class="col-md-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fw-semibold fs-14px">Generos</span>
+                </div>
+                <div class="card-body">
+                    <app-grafico-dona
+                    [cargando]="cargandoReporte"
+                    [grafico]="reporte ? reporte.generos : undefined"></app-grafico-dona>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fw-semibold fs-14px">Departamentos</span>
+                </div>
+                <div class="card-body">
+                    <app-grafico-dona
+                    [cargando]="cargandoReporte" 
+                    [grafico]="reporte ? reporte.departamentos : undefined"></app-grafico-dona>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-0 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fw-semibold fs-14px">Créditos desembolsados.</span>
+                </div>
+                <div class="card-body">
+                    <app-grafico-barras
+                    [cargando]="cargandoReporte" 
+                    [grafico]="reporte ? reporte.creditosDesembolsados : undefined"></app-grafico-barras>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-0">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fw-semibold fs-14px">Disponibilidad de cobertura</span>   
+                </div>
+                <div class="card-body">
+                    <app-cargando-grafico *ngIf="!reporte"></app-cargando-grafico>
+                    <div class="table-responsive custom-scroll" *ngIf="reporte">
+                        <table class="table fs-14px fw-semibold">
+                            <thead>
+                                <tr class="">
+                                    <th>Fecha</th>
+                                    <th>Vlr colocación</th>
+                                    <th>Núm créditos</th>
+                                    <th>Ticket</th>
+                                    <th>Plazo</th>
+                                    <th>Saldo</th>
+                                    <th>Disponibilidad fianza fija</th>
+                                    <th>Disponibilidad fianza variable</th>
+                                    <th>Total disponible (Fianza fija + variable)</th>
+                                    <th>Total disponible / colocación por cobertura inicial</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cobDisp of reporte.coberturasDisponibles">
+                                    <td>{{ cobDisp.fechaMes }}</td>
+                                    <td>{{ cobDisp.valorColocacion }}</td>
+                                    <td>{{ cobDisp.numeroCreditos }}</td>
+                                    <td>{{ cobDisp.ticketPromedio }}</td>
+                                    <td>{{ cobDisp.plazoPromedio }}</td>
+                                    <td>$ 1.036</td>
+                                    <td>$ 1.8</td>
+                                    <td>$ 1.8</td>
+                                    <td>$ 1.8</td>
+                                    <td>12 %</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="10" class="text-center">
+                                        <span class="fw-semibold fs-14px texto-centrado">No hay datos para mostrar.</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

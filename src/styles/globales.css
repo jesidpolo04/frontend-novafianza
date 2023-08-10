@@ -23,6 +23,7 @@ input[type=number] {
 .max-width-400px{max-width: 400px;}
 
 .fondo-gris{background-color: #B7B7B7;}
+.fondo-gris-oscuro{background-color: #DBDBDB;}
 .fondo-azul-degradado{background: linear-gradient(241deg, var(--azul) 30%, var(--azul-oscuro) 100%);}
 .fondo-celeste{background-color: #A8D8ED}
 
@@ -250,22 +251,6 @@ input[type=number] {
   color: #545454;
   font-family: inherit;
   font-size: 1rem;
-}
-.resumen{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 244px;
-  height: 200px;
-  border: 5px solid #EDEFF0;
-  border-radius: 10px;
-  padding: 10px;
-  gap: 10px;
-}
-.resumen img{
-  width: 50px;
-  height: auto;
 }
 
 .validacion{

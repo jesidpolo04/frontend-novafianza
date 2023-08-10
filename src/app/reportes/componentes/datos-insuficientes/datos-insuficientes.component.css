@@ -1,0 +1,14 @@
+:host{
+    width: 100%;
+}
+
+.cargando-grafico{
+    display: flex;
+    height: 150px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    background-color: gainsboro;
+    color: gray;
+}

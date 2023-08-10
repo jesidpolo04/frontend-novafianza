@@ -1,0 +1,50 @@
+.texto-resumen-general{
+    font-size: 14px;
+    max-width: 120px;
+    font-weight: 600;
+}
+
+.contenedor-resumen{
+    background-color: #EEEEEE;
+    flex-wrap: wrap;
+}
+.resumen{
+    /* max-height: 76px; */
+    display: flex;
+    flex-shrink: 1;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    border: 1px solid #B7B7B7;
+    border-radius: 5px;
+    background: transparent linear-gradient(180deg, #32BEC1 0%, #202256 100%);
+    color: #ffff;
+    padding: 10px;
+}
+.resumen .titulo{
+    text-align: center;
+    font-size: 14px;
+}
+.resumen .valor{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.tabla-flow-rate th{
+    font-weight: 600;
+    white-space: nowrap;
+}
+.tabla-flow-rate td.exitoso{
+    background-color: #63BE7B;
+}
+.tabla-flow-rate td.advertencia{
+    background-color: #FFAA00;
+}
+.tabla-flow-rate td.riesgo{
+    background-color: #FCAB78;
+}
+.tabla-flow-rate td.peligro{
+    background-color: #F16567;
+}

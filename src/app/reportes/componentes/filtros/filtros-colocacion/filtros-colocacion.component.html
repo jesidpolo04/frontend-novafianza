@@ -4,15 +4,26 @@
             <fieldset class="filtro">
                 <label for="">Servicio</label>
                 <select name="" id="" class="form-select">
-                    <option value="">Elije un servicio</option>
+                    <option value="">353</option>
                 </select>
             </fieldset>
         </div>
         <div class="col-2">
             <fieldset class="filtro">
                 <label for="">Fecha inicial <br> <small>Mes</small></label>
-                <select name="" id="" class="form-select">
-                    <option value="">Enero</option>
+                <select (ngModelChange)="manejarCambioFechaInicial({mes: $event})" [ngModel]="mesInicio" id="" class="form-select">
+                    <option [value]="1">Enero</option>
+                    <option [value]="2">Febrero</option>
+                    <option [value]="3">Marzo</option>
+                    <option [value]="4">Abril</option>
+                    <option [value]="5">Mayo</option>
+                    <option [value]="6">Junio</option>
+                    <option [value]="7">Julio</option>
+                    <option [value]="8">Agosto</option>
+                    <option [value]="9">Septiembre</option>
+                    <option [value]="10">Octubre</option>
+                    <option [value]="11">Noviembre</option>
+                    <option [value]="12">Diciembre</option>
                 </select>
             </fieldset>
         </div>
@@ -20,16 +31,32 @@
         <div class="col-2">
             <fieldset class="filtro">
                 <label for=""><small>Año</small></label>
-                <select name="" id="" class="form-select">
-                    <option value="">2022</option>
+                <select (ngModelChange)="manejarCambioFechaInicial({anio: $event})" [ngModel]="anioInicio" id="" class="form-select">
+                    <option [value]="2023">2023</option>
+                    <option [value]="2022">2022</option>
+                    <option [value]="2021">2021</option>
+                    <option [value]="2020">2020</option>
+                    <option [value]="2019">2019</option>
+                    <option [value]="2018">2018</option>
                 </select>
             </fieldset>
         </div>
         <div class="col-2">
             <fieldset class="filtro">
                 <label for="">Fecha final <br> <small>Mes</small></label>
-                <select name="" id="" class="form-select">
-                    <option value="">Enero</option>
+                <select (ngModelChange)="manejarCambioFechaFinal({mes: $event})" [ngModel]="mesFinal" id="" class="form-select">
+                    <option [value]="1">Enero</option>
+                    <option [value]="2">Febrero</option>
+                    <option [value]="3">Marzo</option>
+                    <option [value]="4">Abril</option>
+                    <option [value]="5">Mayo</option>
+                    <option [value]="6">Junio</option>
+                    <option [value]="7">Julio</option>
+                    <option [value]="8">Agosto</option>
+                    <option [value]="9">Septiembre</option>
+                    <option [value]="10">Octubre</option>
+                    <option [value]="11">Noviembre</option>
+                    <option [value]="12">Diciembre</option>
                 </select>
             </fieldset>
         </div>
@@ -37,8 +64,13 @@
         <div class="col-2">
             <fieldset class="filtro">
                 <label for=""><small>Año</small></label>
-                <select name="" id="" class="form-select">
-                    <option value="">2022</option>
+                <select (ngModelChange)="manejarCambioFechaFinal({anio: $event})" [ngModel]="anioFinal" id="" class="form-select">
+                    <option [value]="2023">2023</option>
+                    <option [value]="2022">2022</option>
+                    <option [value]="2021">2021</option>
+                    <option [value]="2020">2020</option>
+                    <option [value]="2019">2019</option>
+                    <option [value]="2018">2018</option>
                 </select>
             </fieldset>
         </div>
@@ -47,7 +79,7 @@
         <button class="boton primario sin-borde me-2">
             Limpiar filtros
         </button>
-        <button class="boton primario relleno">
+        <button class="boton primario relleno" (click)="actualizarFiltros()" (keydown.enter)="actualizarFiltros()">
             Aplicar los filtros
         </button>
     </div>
