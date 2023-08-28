@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DateTime } from 'luxon';
+import { DEPARTAMENTOS } from 'src/app/reportes/Departamentos';
+import { GENEROS } from 'src/app/reportes/Generos';
 import { FiltrosSaldosCartera } from 'src/app/reportes/modelos/Filtros/FiltrosSaldosCartera';
 
 @Component({
@@ -16,6 +18,8 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
   alturaDeMora: string
   tienda: string
   genero: string
+  departamentos = DEPARTAMENTOS
+  generos = GENEROS
 
   constructor() {
     this.nuevosFiltros = new EventEmitter<FiltrosSaldosCartera>();

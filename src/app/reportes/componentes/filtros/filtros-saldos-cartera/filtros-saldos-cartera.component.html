@@ -29,6 +29,9 @@
                 <label for="">Tienda</label>
                 <select [(ngModel)]="tienda" class="form-select">
                     <option value="">Elije un opción</option>
+                    <option [value]="departamento.codigo" *ngFor="let departamento of departamentos">
+                        {{departamento.codigo}} - {{departamento.departamento}}
+                    </option>
                 </select>
             </fieldset>
         </div>
@@ -38,6 +41,9 @@
                 <label for="">Género</label>
                 <select [(ngModel)]="genero" class="form-select">
                     <option value="">Elije un opción</option>
+                    <option [value]="genero.codigo" *ngFor="let genero of generos">
+                        {{ genero.codigo }} - {{ genero.genero }}
+                    </option>
                 </select>
             </fieldset>
         </div>

@@ -111,6 +111,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <app-cargando-grafico *ngIf="cargando"></app-cargando-grafico>
                 </div>
             </div>
         </div>
@@ -160,6 +161,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <app-cargando-grafico *ngIf="cargando"></app-cargando-grafico>
                 </div>
             </div>
         </div>
@@ -177,6 +179,7 @@
                     <app-evolucion-cartera
                     [cargando]="cargando"
                     [informacionGrafico]="reporte ? reporte.evolucionSaldosCartera : undefined"></app-evolucion-cartera>
+                    <app-cargando-grafico *ngIf="cargando"></app-cargando-grafico>
                 </div>
             </div>
         </div>
@@ -194,6 +197,8 @@
                     <app-amortizacion-cartera
                     [cargando]="cargando"
                     [informacionGrafico]="reporte ? reporte.amortizacion : undefined"></app-amortizacion-cartera>
+                    <app-cargando-grafico *ngIf="cargando"></app-cargando-grafico>
+                    <app-datos-insuficientes *ngIf="reporte && reporte.amortizacion.etiquetas.length < 1"></app-datos-insuficientes>
                 </div>
             </div>
         </div>
@@ -237,9 +242,13 @@
                                     <td>{{ perdida.saldos120Mas | currency: '' : 'symbol' : '1.0-0' }}</td>
                                     <td>{{ perdida.disponibleCoberturaPorAlturaDeMora | percent }}</td>
                                 </tr>
+                                <tr *ngIf="reporte.perdidaIncurrida.length < 1">
+                                    <td colspan="10" class="text-center fw-semibold">No hay datos para mostrar</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
+                    <app-cargando-grafico *ngIf="cargando"></app-cargando-grafico>
                 </div>
             </div>
         </div>
@@ -262,7 +271,6 @@
                                     % de cobertura 60+
                                 </div>
                             </div>
-                            
                         </div>
                         <div class="col d-flex justify-content-center">
                             <div class="d-flex flex-column align-items-center">
@@ -273,6 +281,7 @@
                             </div>
                         </div>
                     </div>
+                    <app-cargando-grafico *ngIf="cargando"></app-cargando-grafico>
                 </div>
             </div>
         </div>
@@ -305,6 +314,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <app-cargando-grafico *ngIf="cargando"></app-cargando-grafico>
                 </div>
             </div>
         </div>
