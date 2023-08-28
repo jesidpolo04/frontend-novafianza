@@ -16,6 +16,9 @@ import { FiltrosSaldosCarteraComponent } from './componentes/filtros/filtros-sal
 import { FiltrosOperacionesComponent } from './componentes/filtros/filtros-operaciones/filtros-operaciones.component';
 import { GraficoBarrasLineasComponent } from './componentes/grafico-barras-lineas/grafico-barras-lineas.component';
 import { DatosInsuficientesComponent } from './componentes/datos-insuficientes/datos-insuficientes.component';
+import { EvolucionCarteraComponent } from './componentes/evolucion-cartera/evolucion-cartera.component';
+import { AmortizacionCarteraComponent } from './componentes/amortizacion-cartera/amortizacion-cartera.component';
+import { TacometroComponent } from './componentes/tacometro/tacometro.component';
 
 
 
@@ -33,7 +36,10 @@ import { DatosInsuficientesComponent } from './componentes/datos-insuficientes/d
     FiltrosSaldosCarteraComponent,
     FiltrosOperacionesComponent,
     GraficoBarrasLineasComponent,
-    DatosInsuficientesComponent
+    DatosInsuficientesComponent,
+    EvolucionCarteraComponent,
+    AmortizacionCarteraComponent,
+    TacometroComponent
   ],
   imports: [
     RouterModule,

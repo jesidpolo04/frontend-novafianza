@@ -21,11 +21,8 @@ export class GraficoDonaComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnChanges(): void {
     if(this.informacionGrafico && this.informacionGrafico.grupoDatos.length > 0 && this.informacionGrafico.grupoDatos[0].etiquetas!.length < 1){
       this.datosInsuficientes = true
-      console.log('etiquetas dona .len', this.informacionGrafico.grupoDatos[0].etiquetas!.length)
-      console.log('datos insuficientes', this.datosInsuficientes)
     }else{
       this.datosInsuficientes = false
-      console.log('datos insuficientes', this.datosInsuficientes)
     }
     if(this.canvas){
       this.renderizarGrafico();

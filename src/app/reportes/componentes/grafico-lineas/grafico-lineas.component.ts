@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Grafico } from '../../modelos/Grafico';
+import  pluginDataLabel from 'chartjs-plugin-datalabels'
 
 @Component({
   selector: 'app-grafico-lineas',
@@ -41,7 +42,14 @@ export class GraficoLineasComponent implements OnInit, AfterViewInit, OnChanges 
     if(!this.informacionGrafico) return;
     this.grafico = new Chart(this.canvas.nativeElement, {
       type: 'line',
+      plugins: [pluginDataLabel],
       options: {
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'top'
+          }
+        },
         responsive: true,
       },
       data: {
@@ -49,7 +57,7 @@ export class GraficoLineasComponent implements OnInit, AfterViewInit, OnChanges 
         datasets: this.informacionGrafico.grupoDatos.map( gd => {
           return {
             data: gd.datos.map( dato => {
-              return dato ? Number(dato) / 1000000 : null;
+              return dato ? Number((Number(dato) / 1000000).toFixed(1))  : null;
             }),
             label: gd.etiqueta,
             borderColor: gd.color,

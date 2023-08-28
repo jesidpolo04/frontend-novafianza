@@ -60,9 +60,11 @@
             <div class="card">
                 <div class="card-header">
                     <span class="fw-semibold fs-14px">Colocación (Valores representados en millones)</span>
-                </div>
-                <div class="card-body">
-                    <app-grafico-lineas 
+<!--                     <button (click)="entrarEnPantallaCompleta(graficoColocacion)">Pantalla completa</button>
+ -->                </div>
+                <div class="card-body bg-white" #graficoColocacion>
+                    <app-grafico-lineas
+                    #graficoColocacion 
                     [cargando]="cargandoReporte" 
                     [grafico]="reporte ? reporte.colocacion: undefined"></app-grafico-lineas>
                 </div>

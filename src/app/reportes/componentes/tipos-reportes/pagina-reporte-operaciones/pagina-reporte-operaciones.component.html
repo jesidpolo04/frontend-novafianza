@@ -1,1 +1,76 @@
-<p>pagina-reporte-operaciones works!</p>
+<div class="d-flex p-3 contenedor-resumen">
+    <div class="texto-resumen-general">
+        Resumen general:
+    </div>
+
+    <div class="d-flex align-items-stretch flex-gap-10" *ngIf="operaciones">
+    
+        <div class="resumen">
+            <span class="titulo">Valor colocación</span>
+            <span class="valor">{{ operaciones.valorColocacion | currency: '' : 'symbol' : '1.0-0' }}</span>
+        </div>
+    
+        <div class="resumen">
+            <span class="titulo">Valor reclamado</span>
+            <span class="valor">{{ operaciones.valorReclamadoTotal | currency: '' : 'symbol' : '1.0-0' }}</span>
+        </div>
+    
+        <div class="resumen">
+            <span class="titulo">Valor recuperado</span>
+            <span class="valor">{{ operaciones.valorRecuperado | currency: '' : 'symbol' : '1.0-0' }}</span>
+        </div>
+    
+        <div class="resumen">
+            <span class="titulo">Valor disponible vigente</span>
+            <span class="valor">{{ operaciones.valorDisponibleVigente | currency: '' : 'symbol' : '1.0-0' }}</span>
+        </div>
+    
+    </div>
+</div>
+<app-filtros-operaciones (nuevosFiltros)="consultarReporte($event)" [aplicando]="aplicandoFiltros"></app-filtros-operaciones>
+<div class="p-3">
+    <div class="row mx-0 mb-3">
+        <div class="col">
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="fs-14px fw-semibold">Convenio 001</span>
+                </div>
+                <div class="card-body">
+                    <table class="table tabla-convenio">
+                        <thead>
+                            <tr>
+                                <th>Mes colocación</th>
+                                <th>No. Créditos reportados</th>
+                                <th>Valor desembolsos</th>
+                                <th>Ingreso por fianza fija</th>
+                                <th>Ingreso por fianza variable</th>
+                                <th>Pagado comercialzación</th>
+                                <th>Disponible cobertura</th>
+                                <th>Valor reclamado</th>
+                                <th>Disponible por cobertura</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="operaciones">
+                            <tr *ngFor="let operacion of operaciones.resumenOperaciones">
+                                <td>{{ operacion.anioColocaion }} - {{ operacion.mesColocacion }}</td>
+                                <td>{{ operacion.numeroCreditos }}</td>
+                                <td>{{ operacion.valorDesembolso | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                <td>{{ operacion.valorIngresoFianzaFija | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                <td>{{ operacion.ValorIngresoFianzaVariable | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                <td>{{ operacion.valorComercializacion | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                <td>{{ operacion.valorDisponiblePagosGenerados | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                <td>{{ operacion.valorReclamado | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                <td> - </td>
+                            </tr>
+                            <tr *ngIf="operaciones.resumenOperaciones.length < 1">
+                                <td colspan="9" class="fw-semibold text-center">No se encontraron resultados.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -118,6 +118,10 @@ input[type=number] {
 .boton.primario.sin-borde{
   color: var(--azul);
 }
+.boton.primario:disabled, .boton.primario:disabled:hover{
+  background-color: gainsboro;
+  color: gray;
+}
 
 .boton.primario.delineado{
   background-color: #fff;

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FiltrosColocacion } from 'src/app/reportes/modelos/Filtros/FiltrosColocacion';
 import { ReporteColocacion } from 'src/app/reportes/modelos/ReporteColocacion';
 import { ServicioReportes } from 'src/app/reportes/servicios/reportes.service';
+import { GraficoLineasComponent } from '../../grafico-lineas/grafico-lineas.component';
 
 @Component({
   selector: 'app-pagina-reporte-colocacion',
@@ -9,6 +10,7 @@ import { ServicioReportes } from 'src/app/reportes/servicios/reportes.service';
   styleUrls: ['./pagina-reporte-colocacion.component.css']
 })
 export class PaginaReporteColocacionComponent implements OnInit {
+  @ViewChild('graficoColocacion') graficoColocacion!: GraficoLineasComponent
   reporte?: ReporteColocacion
   filtros?: FiltrosColocacion
   cargandoReporte: boolean = true
@@ -30,6 +32,10 @@ export class PaginaReporteColocacionComponent implements OnInit {
         console.error(error)
       }
     })
+  }
+
+  entrarEnPantallaCompleta(elemento: HTMLDivElement){
+      elemento.requestFullscreen()
   }
 
 }

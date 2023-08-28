@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
+import  pluginDataLabel from 'chartjs-plugin-datalabels'
+
 
 @Component({
   selector: 'app-grafico-barras-lineas',
@@ -25,6 +27,7 @@ export class GraficoBarrasLineasComponent implements OnInit, AfterViewInit {
 
   public renderizarGrafico() {
     this.grafico = new Chart(this.canvas.nativeElement, {
+      plugins: [pluginDataLabel],
       options: {
         plugins: {
           legend: {
@@ -32,6 +35,10 @@ export class GraficoBarrasLineasComponent implements OnInit, AfterViewInit {
               usePointStyle: true,
               
             }
+          },
+          datalabels: {
+            anchor: 'end',
+            align: 'top'
           }
         }
       },

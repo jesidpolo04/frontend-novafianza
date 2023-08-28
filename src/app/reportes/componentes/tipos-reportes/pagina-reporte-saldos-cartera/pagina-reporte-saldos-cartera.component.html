@@ -1,12 +1,4 @@
-<app-filtros-saldos-cartera></app-filtros-saldos-cartera>
-<div class="d-flex p-3 align-items-center fondo-gris-oscuro">
-    <span class="texto-gris fs-14px">
-        <b>Periodo de consulta: </b> Enero de 2022 al Enero de 2023 
-    </span>
-    <span class="ms-auto">
-        <button class="boton primario relleno alterno">Exportar datos</button>
-    </span>
-</div>
+<app-filtros-saldos-cartera (nuevosFiltros)="consultarReporte($event)" [cargando]="cargando"></app-filtros-saldos-cartera>
 <div class="contenedor-resumen d-flex p-3 align-items-stretch flex-gap-10">
     <div class="texto-resumen-general">
         Resumen general:
@@ -14,52 +6,56 @@
 
     <div class="resumen">
         <span class="titulo">ICV 30+</span>
-        <span class="valor">$ 400.000.000</span>
+        <span class="valor" *ngIf="reporte">$ {{ reporte.totales.iCV30mas | currency: '' : '' : '0.0-0' }}</span>
+        <span class="valor" *ngIf="!reporte">$ -</span>
     </div>
 
     <div class="resumen">
         <span class="titulo">ICV 60+</span>
-        <span class="valor">$ 400.000.000</span>
+        <span class="valor" *ngIf="reporte">$ {{ reporte.totales.iCV60mas | currency: '' : '' : '0.0-0' }}</span>
+        <span class="valor" *ngIf="!reporte">$ -</span>
     </div>
 
     <div class="resumen">
         <span class="titulo">ICV 120+</span>
-        <span class="valor">$ 400.000.000</span>
+        <span class="valor" *ngIf="reporte">$ {{ reporte.totales.iCV120mas | currency: '' : '' : '0.0-0' }}</span>
+        <span class="valor" *ngIf="!reporte">$ -</span>
     </div>
 
     <div class="resumen">
         <span class="titulo">ICV 150+</span>
-        <span class="valor">$ 400.000.000</span>
+        <span class="valor" *ngIf="reporte">$ {{ reporte.totales.iCV150mas | currency: '' : '' : '0.0-0' }}</span>
+        <span class="valor" *ngIf="!reporte">$ -</span>
     </div>
 
     <div class="resumen">
         <span class="titulo">Número de créditos</span>
-        <span class="valor">350</span>
+        <span class="valor" *ngIf="reporte">$ {{ reporte.totales.numCredtitos }}</span>
+        <span class="valor" *ngIf="!reporte">$ -</span>
     </div>
 
     <div class="resumen">
         <span class="titulo">Reclamaciones</span>
-        <span class="valor">500.000.000</span>
+        <span class="valor" *ngIf="reporte">{{ reporte.totales.vlrReclamaciones | currency: '' : '' : '0.0-0' }}</span>
+        <span class="valor" *ngIf="!reporte">-</span>
     </div>
 
     <div class="resumen">
         <span class="titulo">Vlr colocación</span>
-        <span class="valor">1.000.000.000</span>
-    </div>
-
-    <div class="resumen">
-        <span class="titulo">Crédito máximo</span>
-        <span class="valor">$ 100.000.000</span>
+        <span class="valor" *ngIf="reporte">{{ reporte.totales.vlrColocaciones | currency: '' : '' : '0.0-0' }}</span>
+        <span class="valor" *ngIf="!reporte">-</span>
     </div>
 
     <div class="resumen">
         <span class="titulo">Ticket promedio</span>
-        <span class="valor">40.000.000</span>
+        <span class="valor" *ngIf="reporte">{{ reporte.totales.ticketPromedio | currency: '' : '' : '0.0-0' }}</span>
+        <span class="valor" *ngIf="!reporte">-</span>
     </div>
 
     <div class="resumen">
         <span class="titulo">Plazo</span>
-        <span class="valor">360</span>
+        <span class="valor" *ngIf="reporte">{{ reporte.totales.plazo }}</span>
+        <span class="valor" *ngIf="!reporte">-</span>
     </div>
 
 </div>
@@ -72,8 +68,8 @@
                     <span class="fs-14px fw-semibold">Rodamiento de cartera (Flow rate)</span>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table tabla-flow-rate fs-14px">
+                    <div class="table-responsive" *ngIf="reporte">
+                        <table class="table tabla-flow-rate fs-14px table-striped">
                             <thead>
                                 <tr>
                                     <th>Año mes cierre</th>
@@ -93,21 +89,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>2022 - 09</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
-                                    <td>0%</td>
+                                <tr *ngFor="let rodamiento of reporte.rodamientoCartera">
+                                    <td>{{ rodamiento.fechaCierre }}</td>
+                                    <td>{{ rodamiento.rango_0_30Dias | percent }}</td>
+                                    <td>{{ rodamiento.rango_31_60Dias | percent  }}</td>
+                                    <td>{{ rodamiento.rango_61_90Dias | percent }}</td>
+                                    <td>{{ rodamiento.rango_91_120Dias | percent }}</td>
+                                    <td>{{ rodamiento.rango_121_150Dias | percent}}</td>
+                                    <td>{{ rodamiento.rango_151_180Dias | percent}}</td>
+                                    <td>{{ rodamiento.rango_181_210Dias | percent}}</td>
+                                    <td>{{ rodamiento.rango_211_240Dias | percent}}</td>
+                                    <td>{{ rodamiento.rango_241_270Dias | percent}}</td>
+                                    <td>{{ rodamiento.rango_271_300Dias | percent}}</td>
+                                    <td>{{ rodamiento.rango_301_330Dias | percent }}</td>
+                                    <td>{{ rodamiento.rango_331_360Dias | percent}}</td>
+                                    <td>{{ rodamiento.rango_361MasDias | percent}}</td>
+                                </tr>
+                                <tr *ngIf="!reporte || reporte.rodamientoCartera.length < 1">
+                                    <td colspan="14" class="fw-semibold text-center">No hay datos para mostrar</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -124,8 +123,8 @@
                     <span class="fs-14px fw-semibold">Cosechas</span>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table tabla-flow-rate fs-14px">
+                    <div class="table-responsive" *ngIf="reporte">
+                        <table class="table tabla-cosechas tabla-flow-rate fs-14px">
                             <thead>
                                 <tr>
                                     <th>Fecha</th>
@@ -134,28 +133,29 @@
                                     <th>Ticket</th>
                                     <th>Plazo</th>
                                     <th>Saldo</th>
-                                    <th>Mes 0</th>
-                                    <th>Mes 1</th>
-                                    <th>Mes 2</th>
-                                    <th>Mes 3</th>
-                                    <th>Mes 4</th>
-                                    <th>Mes 5</th>
+                                    <th *ngFor="let cabecera of reporte.cosechas.cabecerasMeses">
+                                        {{ cabecera }}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>2022 - 09</td>
-                                    <td>$ 1.036</td>
-                                    <td>563</td>
-                                    <td>$1.8</td>
-                                    <td>23</td>
-                                    <td>$ 1.036</td>
-                                    <td class="exitoso">0,00%</td>
+                                <tr *ngFor="let cosecha of reporte.cosechas.cosechas">
+                                    <td class="fecha-cosecha">{{ cosecha.fecha }}</td>
+                                    <td>{{ cosecha.vlrColocacion | currency: 'symbol' : '' : '0.0-0' }}</td>
+                                    <td>{{ cosecha.numCreditos }}</td>
+                                    <td>{{ cosecha.ticket | currency: 'symbol' : '' : '0.0-0' }}</td>
+                                    <td>{{ cosecha.plazo }}</td>
+                                    <td>{{ cosecha.saldo | currency: 'symbol' : '' : '0.0-0' }}</td>
+                                    <td *ngFor="let mes of cosecha.mesesMaduracion">{{ mes.valor }}</td>
+<!--                                     <td class="exitoso">0,00%</td>
                                     <td class="exitoso">0,00%</td>
                                     <td class="riesgo">12,67%</td>
                                     <td class="riesgo">14,85%</td>
                                     <td class="riesgo">16,08%</td>
-                                    <td class="peligro">30,02%</td>
+                                    <td class="peligro">30,02%</td> -->
+                                </tr>
+                                <tr *ngIf="reporte.cosechas.cosechas.length < 1">
+                                    <td colspan="14" class="fw-semibold text-center">No hay datos para mostrar</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -174,9 +174,140 @@
                     </span>
                 </div>
                 <div class="card-body">
-                    <app-grafico-barras-lineas></app-grafico-barras-lineas>
+                    <app-evolucion-cartera
+                    [cargando]="cargando"
+                    [informacionGrafico]="reporte ? reporte.evolucionSaldosCartera : undefined"></app-evolucion-cartera>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row mx-0 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fs-14px fw-semibold">
+                        Amortización de cartera
+                    </span>
+                </div>
+                <div class="card-body">
+                    <app-amortizacion-cartera
+                    [cargando]="cargando"
+                    [informacionGrafico]="reporte ? reporte.amortizacion : undefined"></app-amortizacion-cartera>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-0 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fs-14px fw-semibold">
+                        Pérdida incurrida
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="reporte">
+                        <table class="table fs-14px">
+                            <thead>
+                                <tr>
+                                    <th>Año/Mes Colocación</th>
+                                    <th>Colocación</th>
+                                    <th>Finzas Netas</th>
+                                    <th>Disponible para pagos</th>
+                                    <th>Reclamación hasta penúltimo mes</th>
+                                    <th>Reclamación hasta último mes</th>
+                                    <th>Disponible pagos neto</th>
+                                    <th>Perdida incurrida</th>
+                                    <th>Saldos 120+</th>
+                                    <th>Disponible cobertura por altura de mora</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let perdida of reporte.perdidaIncurrida">
+                                    <td>{{ perdida.fechaColocacion }}</td>
+                                    <td>{{ perdida.colocacion | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                    <td>{{ perdida.fianzasNetas | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                    <td>{{ perdida.disponibleParaPagos | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                    <td>{{ perdida.reclamacionHastaPenultimoMes | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                    <td>{{ perdida.reclamacionUltimoMes | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                    <td>{{ perdida.disponibleParaPagoNeto | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                    <td>{{ perdida.perdidaIncurrida | percent }}</td>
+                                    <td>{{ perdida.saldos120Mas | currency: '' : 'symbol' : '1.0-0' }}</td>
+                                    <td>{{ perdida.disponibleCoberturaPorAlturaDeMora | percent }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-0 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fs-14px fw-semibold">
+                        Pérdida potencial
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="row" *ngIf="reporte">
+                        <div class="col d-flex justify-content-center">
+                            <div class="d-flex flex-column align-items-center">
+                                <app-tacometro [color]="'#2DBFFF'" [porcentaje]="reporte.perdidaPotencial.porcentajeCobertura60Mas ?? 0"></app-tacometro>
+                                <div class="porcentaje-cobertura mt-2">
+                                    % de cobertura 60+
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <div class="d-flex flex-column align-items-center">
+                                <app-tacometro [color]="'#32BEC1'" [porcentaje]="reporte.perdidaPotencial.porcentajeCobertura120Mas ?? 0"></app-tacometro>
+                                <div class="porcentaje-cobertura mt-2">
+                                    % de cobertura 120+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-0 mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fs-14px fw-semibold">
+                        Disponible coberturas por altura de mora
+                    </span>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped fs-14px" *ngIf="reporte">
+                        <thead>
+                            <tr>
+                                <th>Altura de mora</th>
+                                <th>Saldo por altura de mora</th>
+                                <th>Disponible para coberturas</th>
+                                <th>% de coberturas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let disponible of reporte.disponibleCoberturas">
+                                <td>{{ disponible.alturaMora }}</td>
+                                <td>{{ disponible.saldoPorAlturaMora }}</td>
+                                <td>{{ disponible.disponibleParaCoberturas }}</td>
+                                <td>{{ disponible.porcentajeCobertura }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

@@ -1,14 +1,15 @@
-.texto-resumen-general{
+.texto-resumen-general {
     font-size: 14px;
     max-width: 120px;
     font-weight: 600;
 }
 
-.contenedor-resumen{
+.contenedor-resumen {
     background-color: #EEEEEE;
     flex-wrap: wrap;
 }
-.resumen{
+
+.resumen {
     /* max-height: 76px; */
     display: flex;
     flex-shrink: 1;
@@ -21,30 +22,59 @@
     color: #ffff;
     padding: 10px;
 }
-.resumen .titulo{
+
+.resumen .titulo {
     text-align: center;
     font-size: 14px;
 }
-.resumen .valor{
+
+.resumen .valor {
     text-align: center;
     font-size: 16px;
     font-weight: 600;
     white-space: nowrap;
 }
 
-.tabla-flow-rate th{
+.tabla-flow-rate th,
+.tabla-flow-rate td {
+    height: 50px;
+    vertical-align: middle;
+}
+
+.tabla-flow-rate th {
     font-weight: 600;
     white-space: nowrap;
 }
-.tabla-flow-rate td.exitoso{
+
+.tabla-flow-rate td {}
+
+.tabla-flow-rate td.exitoso {
     background-color: #63BE7B;
 }
-.tabla-flow-rate td.advertencia{
+
+.tabla-flow-rate td.advertencia {
     background-color: #FFAA00;
 }
-.tabla-flow-rate td.riesgo{
+
+.tabla-flow-rate td.riesgo {
     background-color: #FCAB78;
 }
-.tabla-flow-rate td.peligro{
+
+.tabla-flow-rate td.peligro {
     background-color: #F16567;
+}
+
+.porcentaje-cobertura {
+    width: 193px;
+    height: 52px;
+    border: 1px solid #2DBFFF;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 50px;
+    background: transparent linear-gradient(180deg, #F9F9F9 0%, #F7F7F7 43%, #F1F1F1 100%) 0% 0% no-repeat padding-box;
+}
+.tabla-cosechas .fecha-cosecha{
+    min-width: 80px;
+    font-weight: 600;
 }
