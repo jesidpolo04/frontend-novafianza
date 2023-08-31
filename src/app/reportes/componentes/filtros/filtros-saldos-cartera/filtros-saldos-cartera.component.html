@@ -1,51 +1,65 @@
-<div class="filtros bg-white w-100">
-    <div class="row px-4 py-3 w-100">
-        <div class="col-3">
-            <fieldset class="filtro">
-                <label for="">Altura de mora</label>
-                <select [(ngModel)]="alturaDeMora" class="form-select">
-                    <option value="Mayor_30">Mayor a 30</option>
-                    <option value="Mayor_60">Mayor a 60</option>
-                    <option value="Mayor_90">Mayor a 90</option>
-                    <option value="Mayor_120">Mayor a 120</option>
-                    <option value="Mayor_150">Mayor a 150</option>
-                    <option value="Mayor_180">Mayor a 180</option>
-                    <option value="Mayor_210">Mayor a 210</option>
-                    <option value="Mayor_240">Mayor a 240</option>
-                    <option value="Mayor_360">Mayor a 360</option>
-                </select>
-            </fieldset>
+<div class="filtros bg-white w-100 ">
+    <div class="py-3 px-4">
+        <div class="row w-100 mb-3" *ngIf="!esUsuarioEmpresa">
+            <div class="col">
+                <fieldset class="filtro">
+                    <label>Empresa</label>
+                    <select [(ngModel)]="empresa" class="form-select">
+                        <option [value]="empresa.nit" *ngFor="let empresa of empresas">
+                            {{ empresa.nit }} - {{ empresa.nombre }}
+                        </option>
+                    </select>
+                </fieldset>
+            </div>
         </div>
-
-        <div class="col-3">
-            <fieldset class="filtro">
-                <label for="">Fecha de cierre</label>
-                <input class="form-control" type="month" id="start" name="start" min="2015-01" [(ngModel)]="fechaCierre" />
-            </fieldset>
-        </div>
-
-        <div class="col-3">
-            <fieldset class="filtro">
-                <label for="">Tienda</label>
-                <select [(ngModel)]="tienda" class="form-select">
-                    <option value="">Elije un opción</option>
-                    <option [value]="departamento.codigo" *ngFor="let departamento of departamentos">
-                        {{departamento.codigo}} - {{departamento.departamento}}
-                    </option>
-                </select>
-            </fieldset>
-        </div>
-
-        <div class="col-3">
-            <fieldset class="filtro">
-                <label for="">Género</label>
-                <select [(ngModel)]="genero" class="form-select">
-                    <option value="">Elije un opción</option>
-                    <option [value]="genero.codigo" *ngFor="let genero of generos">
-                        {{ genero.codigo }} - {{ genero.genero }}
-                    </option>
-                </select>
-            </fieldset>
+        <div class="row w-100">
+            <div class="col-3">
+                <fieldset class="filtro">
+                    <label for="">Altura de mora</label>
+                    <select [(ngModel)]="alturaDeMora" class="form-select">
+                        <option value="Mayor_30">Mayor a 30</option>
+                        <option value="Mayor_60">Mayor a 60</option>
+                        <option value="Mayor_90">Mayor a 90</option>
+                        <option value="Mayor_120">Mayor a 120</option>
+                        <option value="Mayor_150">Mayor a 150</option>
+                        <option value="Mayor_180">Mayor a 180</option>
+                        <option value="Mayor_210">Mayor a 210</option>
+                        <option value="Mayor_240">Mayor a 240</option>
+                        <option value="Mayor_360">Mayor a 360</option>
+                    </select>
+                </fieldset>
+            </div>
+    
+            <div class="col-3">
+                <fieldset class="filtro">
+                    <label for="">Fecha de cierre</label>
+                    <input class="form-control" type="month" id="start" name="start" min="2015-01" [(ngModel)]="fechaCierre" />
+                </fieldset>
+            </div>
+    
+            <div class="col-3">
+                <fieldset class="filtro">
+                    <label for="">Tienda</label>
+                    <select [(ngModel)]="tienda" class="form-select">
+                        <option value="">Elije un opción</option>
+                        <option [value]="departamento.codigo" *ngFor="let departamento of departamentos">
+                            {{departamento.codigo}} - {{departamento.departamento}}
+                        </option>
+                    </select>
+                </fieldset>
+            </div>
+    
+            <div class="col-3">
+                <fieldset class="filtro">
+                    <label for="">Género</label>
+                    <select [(ngModel)]="genero" class="form-select">
+                        <option value="">Elije un opción</option>
+                        <option [value]="genero.codigo" *ngFor="let genero of generos">
+                            {{ genero.codigo }} - {{ genero.genero }}
+                        </option>
+                    </select>
+                </fieldset>
+            </div>
         </div>
     </div>
     <div class="w-100 bg-white px-4 py-3 border-top d-flex justify-content-end">

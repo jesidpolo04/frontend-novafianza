@@ -8,6 +8,7 @@ import { FiltrosOperaciones } from '../modelos/Filtros/FiltrosOperaciones';
 import { Operaciones } from '../modelos/Operaciones';
 import { ReporteSaldosCartera } from '../modelos/ReporteSaldosCartera';
 import { FiltrosSaldosCartera } from '../modelos/Filtros/FiltrosSaldosCartera';
+import { Producto } from '../modelos/Producto';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,10 @@ export class ServicioReportes extends Autenticable{
   obtenerSaldosCartera(filtros: FiltrosSaldosCartera){
     const endpoint = '/api/v1/reportes/saldosCartera'
     return this.http.post<ReporteSaldosCartera>(`${this.host}${endpoint}`, filtros, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  obtenerProductos(empresa: string){
+    const endpoint = '/api/v1/reportes/productos'
+    return this.http.post<Producto[]>(`${this.host}${endpoint}`, {empresa}, { headers: this.obtenerCabeceraAutorizacion() })
   }
 }

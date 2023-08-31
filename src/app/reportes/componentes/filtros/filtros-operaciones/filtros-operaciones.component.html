@@ -1,115 +1,130 @@
 <div class="filtros bg-white w-100">
-    <div class="row px-4 py-3 w-100">
-        <div class="col-4">
-            <fieldset class="filtro">
-                <label for="">Filtrar por</label>
-                <select [(ngModel)]="tipo" id="" class="form-select" (ngModelChange)="manejarCambioDeTipo($event)">
-                    <option value="">Seleccionar</option>
-                    <option value="DESEMBOLSO">Desembolso</option>
-                    <option value="COLOCACION">Colocación</option>
-                </select>
-            </fieldset>
+    <div class="px-4 py-3">
+        <div class="row w-100 mb-3" *ngIf="!esUsuarioEmpresa">
+            <div class="col">
+                <fieldset class="filtro">
+                    <label>Empresa</label>
+                    <select [(ngModel)]="empresa" class="form-select">
+                        <option [value]="empresa.nit" *ngFor="let empresa of empresas">
+                            {{ empresa.nit }} - {{ empresa.nombre }}
+                        </option>
+                    </select>
+                </fieldset>
+            </div>
         </div>
-
-        <div class="col-4" *ngIf="tipo === 'COLOCACION'">
-            <fieldset class="filtro">
-                <label>Mes</label>
-                <select [(ngModel)]="mesColocacion" class="form-select">
-                    <option value="01">Enero</option>
-                    <option value="02">Febrero</option>
-                    <option value="03">Marzo</option>
-                    <option value="04">Abril</option>
-                    <option value="05">Mayo</option>
-                    <option value="06">Junio</option>
-                    <option value="07">Julio</option>
-                    <option value="08">Agosto</option>
-                    <option value="09">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
-                </select>
-            </fieldset>
-        </div>
-
-        <div class="col-4" *ngIf="tipo === 'COLOCACION'">
-            <fieldset class="filtro">
-                <label>Año</label>
-                <select [(ngModel)]="anioColocacion" class="form-select">
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                    <option value="2020">2020</option>
-                </select>
-            </fieldset>
-        </div>
-
-        <div class="col-2" *ngIf="tipo === 'DESEMBOLSO'">
-            <fieldset class="filtro" >
-                <label for="">Fecha inicial <br> <small>Mes</small></label>
-                <select (ngModelChange)="manejarCambioFechaInicial({mes: $event})" [ngModel]="mesInicio" id="" class="form-select">
-                    <option [value]="1">Enero</option>
-                    <option [value]="2">Febrero</option>
-                    <option [value]="3">Marzo</option>
-                    <option [value]="4">Abril</option>
-                    <option [value]="5">Mayo</option>
-                    <option [value]="6">Junio</option>
-                    <option [value]="7">Julio</option>
-                    <option [value]="8">Agosto</option>
-                    <option [value]="9">Septiembre</option>
-                    <option [value]="10">Octubre</option>
-                    <option [value]="11">Noviembre</option>
-                    <option [value]="12">Diciembre</option>
-                </select>
-            </fieldset>
-        </div>
-
-        <div class="col-2" *ngIf="tipo === 'DESEMBOLSO'">
-            <fieldset class="filtro">
-                <label for=""><small>Año</small></label>
-                <select (ngModelChange)="manejarCambioFechaInicial({anio: $event})" [ngModel]="anioInicio" id="" class="form-select">
-                    <option [value]="2023">2023</option>
-                    <option [value]="2022">2022</option>
-                    <option [value]="2021">2021</option>
-                    <option [value]="2020">2020</option>
-                    <option [value]="2019">2019</option>
-                    <option [value]="2018">2018</option>
-                </select>
-            </fieldset>
-        </div>
-        <div class="col-2" *ngIf="tipo === 'DESEMBOLSO'">
-            <fieldset class="filtro">
-                <label for="">Fecha final <br> <small>Mes</small></label>
-                <select (ngModelChange)="manejarCambioFechaFinal({mes: $event})" [ngModel]="mesFinal" id="" class="form-select">
-                    <option [value]="1">Enero</option>
-                    <option [value]="2">Febrero</option>
-                    <option [value]="3">Marzo</option>
-                    <option [value]="4">Abril</option>
-                    <option [value]="5">Mayo</option>
-                    <option [value]="6">Junio</option>
-                    <option [value]="7">Julio</option>
-                    <option [value]="8">Agosto</option>
-                    <option [value]="9">Septiembre</option>
-                    <option [value]="10">Octubre</option>
-                    <option [value]="11">Noviembre</option>
-                    <option [value]="12">Diciembre</option>
-                </select>
-            </fieldset>
-        </div>
-
-        <div class="col-2" *ngIf="tipo === 'DESEMBOLSO'">
-            <fieldset class="filtro">
-                <label for=""><small>Año</small></label>
-                <select (ngModelChange)="manejarCambioFechaFinal({anio: $event})" [ngModel]="anioFinal" id="" class="form-select">
-                    <option [value]="2023">2023</option>
-                    <option [value]="2022">2022</option>
-                    <option [value]="2021">2021</option>
-                    <option [value]="2020">2020</option>
-                    <option [value]="2019">2019</option>
-                    <option [value]="2018">2018</option>
-                </select>
-            </fieldset>
+        <div class="row w-100">
+            <div class="col-4">
+                <fieldset class="filtro">
+                    <label for="">Filtrar por</label>
+                    <select [(ngModel)]="tipo" id="" class="form-select" (ngModelChange)="manejarCambioDeTipo($event)">
+                        <option value="">Seleccionar</option>
+                        <option value="DESEMBOLSO">Desembolso</option>
+                        <option value="COLOCACION">Colocación</option>
+                    </select>
+                </fieldset>
+            </div>
+    
+            <div class="col-4" *ngIf="tipo === 'COLOCACION'">
+                <fieldset class="filtro">
+                    <label>Mes</label>
+                    <select [(ngModel)]="mesColocacion" class="form-select">
+                        <option value="01">Enero</option>
+                        <option value="02">Febrero</option>
+                        <option value="03">Marzo</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Mayo</option>
+                        <option value="06">Junio</option>
+                        <option value="07">Julio</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                </fieldset>
+            </div>
+    
+            <div class="col-4" *ngIf="tipo === 'COLOCACION'">
+                <fieldset class="filtro">
+                    <label>Año</label>
+                    <select [(ngModel)]="anioColocacion" class="form-select">
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </fieldset>
+            </div>
+    
+            <div class="col-2" *ngIf="tipo === 'DESEMBOLSO'">
+                <fieldset class="filtro" >
+                    <label for="">Fecha inicial <br> <small>Mes</small></label>
+                    <select (ngModelChange)="manejarCambioFechaInicial({mes: $event})" [ngModel]="mesInicio" id="" class="form-select">
+                        <option [value]="1">Enero</option>
+                        <option [value]="2">Febrero</option>
+                        <option [value]="3">Marzo</option>
+                        <option [value]="4">Abril</option>
+                        <option [value]="5">Mayo</option>
+                        <option [value]="6">Junio</option>
+                        <option [value]="7">Julio</option>
+                        <option [value]="8">Agosto</option>
+                        <option [value]="9">Septiembre</option>
+                        <option [value]="10">Octubre</option>
+                        <option [value]="11">Noviembre</option>
+                        <option [value]="12">Diciembre</option>
+                    </select>
+                </fieldset>
+            </div>
+    
+            <div class="col-2" *ngIf="tipo === 'DESEMBOLSO'">
+                <fieldset class="filtro">
+                    <label for=""><small>Año</small></label>
+                    <select (ngModelChange)="manejarCambioFechaInicial({anio: $event})" [ngModel]="anioInicio" id="" class="form-select">
+                        <option [value]="2023">2023</option>
+                        <option [value]="2022">2022</option>
+                        <option [value]="2021">2021</option>
+                        <option [value]="2020">2020</option>
+                        <option [value]="2019">2019</option>
+                        <option [value]="2018">2018</option>
+                    </select>
+                </fieldset>
+            </div>
+            <div class="col-2" *ngIf="tipo === 'DESEMBOLSO'">
+                <fieldset class="filtro">
+                    <label for="">Fecha final <br> <small>Mes</small></label>
+                    <select (ngModelChange)="manejarCambioFechaFinal({mes: $event})" [ngModel]="mesFinal" id="" class="form-select">
+                        <option [value]="1">Enero</option>
+                        <option [value]="2">Febrero</option>
+                        <option [value]="3">Marzo</option>
+                        <option [value]="4">Abril</option>
+                        <option [value]="5">Mayo</option>
+                        <option [value]="6">Junio</option>
+                        <option [value]="7">Julio</option>
+                        <option [value]="8">Agosto</option>
+                        <option [value]="9">Septiembre</option>
+                        <option [value]="10">Octubre</option>
+                        <option [value]="11">Noviembre</option>
+                        <option [value]="12">Diciembre</option>
+                    </select>
+                </fieldset>
+            </div>
+    
+            <div class="col-2" *ngIf="tipo === 'DESEMBOLSO'">
+                <fieldset class="filtro">
+                    <label for=""><small>Año</small></label>
+                    <select (ngModelChange)="manejarCambioFechaFinal({anio: $event})" [ngModel]="anioFinal" id="" class="form-select">
+                        <option [value]="2023">2023</option>
+                        <option [value]="2022">2022</option>
+                        <option [value]="2021">2021</option>
+                        <option [value]="2020">2020</option>
+                        <option [value]="2019">2019</option>
+                        <option [value]="2018">2018</option>
+                    </select>
+                </fieldset>
+            </div>
         </div>
     </div>
+   
     <div class="w-100 bg-white px-4 py-3 border-top d-flex justify-content-end">
         <button class="boton primario sin-borde me-2">
             Limpiar filtros

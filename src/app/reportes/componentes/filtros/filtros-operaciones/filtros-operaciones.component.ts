@@ -1,8 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DateTime } from 'luxon';
+import { Empresa } from 'src/app/administrador/modelos/empresas/Empresa';
+import { ServicioEmpresa } from 'src/app/administrador/servicios/empresas.service';
+import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
 import { FormatoFechas } from 'src/app/compartido/FormatoFechas';
 import { FiltrosColocacion } from 'src/app/reportes/modelos/Filtros/FiltrosColocacion';
 import { FiltrosOperaciones } from 'src/app/reportes/modelos/Filtros/FiltrosOperaciones';
+import { ServicioReportes } from 'src/app/reportes/servicios/reportes.service';
 
 @Component({
   selector: 'app-filtros-operaciones',
@@ -24,11 +28,28 @@ export class FiltrosOperacionesComponent implements OnInit {
   fechaInicial: DateTime;
   fechaFinal: DateTime;
 
+  esUsuarioEmpresa: boolean
+  empresa: string
+  empresas: Empresa[] = []
+
   tipo: 'COLOCACION' | 'DESEMBOLSO' = 'DESEMBOLSO'
 
   filtros?: FiltrosOperaciones
 
-  constructor() {
+  constructor(
+    private servicioLocalStorage: ServicioLocalStorage,
+    private servicioEmpresas: ServicioEmpresa
+  ) {
+    const usuario = this.servicioLocalStorage.obtenerUsuario()
+    if (!usuario) throw Error("Usuario no identificado.");
+    if (usuario.idEmpresa) {
+      this.esUsuarioEmpresa = true
+      this.empresa = usuario.idEmpresa
+    } else {
+      this.esUsuarioEmpresa = false
+      this.empresa = ""
+    }
+
     const fechaActual = DateTime.now()
 
     this.nuevosFiltros = new EventEmitter<FiltrosOperaciones>();
@@ -46,21 +67,37 @@ export class FiltrosOperacionesComponent implements OnInit {
 
   ngOnInit(): void {
     this.filtros = {
+      empresa: this.empresa,
       fechaFinalDesembolso: this.fechaFinal.toFormat(FormatoFechas.FECHA_SAFIX),
       fechaInicioDesembolso: this.fechaInicial.toFormat(FormatoFechas.FECHA_SAFIX)
     }
-    this.nuevosFiltros.emit(this.filtros)
+    this.servicioEmpresas.obtenerEmpresas(1, 500).subscribe({
+      next: (respuesta) => {
+        this.empresas = respuesta.empresas
+        if (this.esUsuarioEmpresa) {
+          const empresa = this.empresas.find( empresa => empresa.id.toString() === this.empresa)
+          if(empresa){
+            this.empresa = empresa.nit.toString();
+          }
+        }
+        if (!this.esUsuarioEmpresa && this.empresas.length > 0) {
+          this.empresa = this.empresas[0].nit.toString()
+        }
+      }
+    })
   }
 
   manejarCambioDeTipo(tipo: 'COLOCACION' | 'DESEMBOLSO'){
     if(tipo === 'DESEMBOLSO'){
       this.filtros = {
+        empresa: this.empresa,
         fechaFinalDesembolso: this.fechaFinal.toFormat(FormatoFechas.FECHA_SAFIX),
         fechaInicioDesembolso: this.fechaInicial.toFormat(FormatoFechas.FECHA_SAFIX)
       }
       this.nuevosFiltros.emit(this.filtros)
     }if(tipo === 'COLOCACION'){
       this.filtros = {
+        empresa: this.empresa,
         anioColocacion: this.anioColocacion,
         mesColocacion: this.mesColocacion
       }
@@ -89,6 +126,7 @@ export class FiltrosOperacionesComponent implements OnInit {
   actualizarFiltros(){
     if(this.tipo === 'COLOCACION'){
       this.filtros = {
+        empresa: this.empresa,
         anioColocacion: this.anioColocacion,
         mesColocacion: this.mesColocacion
       }
@@ -96,6 +134,7 @@ export class FiltrosOperacionesComponent implements OnInit {
     }
     else if(this.tipo === 'DESEMBOLSO'){
       this.filtros = {
+        empresa: this.empresa,
         fechaFinalDesembolso: this.fechaFinal.toFormat(FormatoFechas.FECHA_SAFIX),
         fechaInicioDesembolso: this.fechaInicial.toFormat(FormatoFechas.FECHA_SAFIX),
       }

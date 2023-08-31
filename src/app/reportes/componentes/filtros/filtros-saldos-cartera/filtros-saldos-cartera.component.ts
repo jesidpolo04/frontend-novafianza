@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DateTime } from 'luxon';
+import { Empresa } from 'src/app/administrador/modelos/empresas/Empresa';
+import { ServicioEmpresa } from 'src/app/administrador/servicios/empresas.service';
+import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
 import { DEPARTAMENTOS } from 'src/app/reportes/Departamentos';
 import { GENEROS } from 'src/app/reportes/Generos';
 import { FiltrosSaldosCartera } from 'src/app/reportes/modelos/Filtros/FiltrosSaldosCartera';
@@ -21,8 +24,26 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
   departamentos = DEPARTAMENTOS
   generos = GENEROS
 
-  constructor() {
+  empresa: string
+  empresas: Empresa[] = []
+
+  esUsuarioEmpresa: boolean
+
+  constructor(
+    private servicioLocalStorage: ServicioLocalStorage,
+    private servicioEmpresas: ServicioEmpresa
+  ) {
     this.nuevosFiltros = new EventEmitter<FiltrosSaldosCartera>();
+
+    const usuario = this.servicioLocalStorage.obtenerUsuario()
+    if (!usuario) throw Error("Usuario no identificado.");
+    if (usuario.idEmpresa) {
+      this.esUsuarioEmpresa = true
+      this.empresa = usuario.idEmpresa
+    } else {
+      this.esUsuarioEmpresa = false
+      this.empresa = ""
+    }
 
     let fechaActual = DateTime.now()
 
@@ -36,12 +57,26 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
       mesColocacion: fechaActual.month.toString(),
       alturaDeMora: this.alturaDeMora,
       departamento: this.tienda,
-      genero: this.genero
+      genero: this.genero,
+      empresa: this.empresa
     }
   }
 
   ngOnInit(): void {
-    this.actualizarFiltros()
+    this.servicioEmpresas.obtenerEmpresas(1, 500).subscribe({
+      next: (respuesta) => {
+        this.empresas = respuesta.empresas
+        if (this.esUsuarioEmpresa) {
+          const empresa = this.empresas.find( empresa => empresa.id.toString() === this.empresa)
+          if(empresa){
+            this.empresa = empresa.nit.toString();
+          }
+        }
+        if (!this.esUsuarioEmpresa && this.empresas.length > 0) {
+          this.empresa = this.empresas[0].nit.toString()
+        }
+      }
+    })
   }
 
   reiniciarFiltros(){
@@ -57,7 +92,8 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
       mesColocacion: fechaActual.month.toString(),
       alturaDeMora: this.alturaDeMora,
       departamento: this.tienda,
-      genero: this.genero
+      genero: this.genero,
+      empresa: this.empresa
     }
   }
 
@@ -68,7 +104,8 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
       mesColocacion: fechaCierre.month.toString(),
       alturaDeMora: this.alturaDeMora,
       departamento: this.tienda,
-      genero: this.genero
+      genero: this.genero,
+      empresa: this.empresa
     }
     this.nuevosFiltros.emit(this.filtros)
   }
