@@ -6,6 +6,7 @@ import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-stor
 import { DEPARTAMENTOS } from 'src/app/reportes/Departamentos';
 import { GENEROS } from 'src/app/reportes/Generos';
 import { FiltrosSaldosCartera } from 'src/app/reportes/modelos/Filtros/FiltrosSaldosCartera';
+import { ServicioReportes } from 'src/app/reportes/servicios/reportes.service';
 
 @Component({
   selector: 'app-filtros-saldos-cartera',
@@ -16,7 +17,7 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
   @Input() cargando: boolean = false
   @Output() nuevosFiltros: EventEmitter<FiltrosSaldosCartera>;
 
-  filtros: FiltrosSaldosCartera
+  filtros?: FiltrosSaldosCartera
   fechaCierre: string
   alturaDeMora: string
   tienda: string
@@ -31,7 +32,8 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
 
   constructor(
     private servicioLocalStorage: ServicioLocalStorage,
-    private servicioEmpresas: ServicioEmpresa
+    private servicioEmpresas: ServicioEmpresa,
+    private servicioReporte: ServicioReportes
   ) {
     this.nuevosFiltros = new EventEmitter<FiltrosSaldosCartera>();
 
@@ -51,15 +53,6 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
     this.alturaDeMora = 'Mayor_30',
     this.tienda = ""
     this.genero = ""
-
-    this.filtros = {
-      anioColocacion: fechaActual.year.toString(),
-      mesColocacion: fechaActual.month.toString(),
-      alturaDeMora: this.alturaDeMora,
-      departamento: this.tienda,
-      genero: this.genero,
-      empresa: this.empresa
-    }
   }
 
   ngOnInit(): void {
@@ -108,6 +101,13 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
       empresa: this.empresa
     }
     this.nuevosFiltros.emit(this.filtros)
+  }
+
+  exportar(){
+    if(!this.filtros){
+      return;
+    }
+    this.servicioReporte.exportarSaldosCartera(this.filtros)
   }
 
 }

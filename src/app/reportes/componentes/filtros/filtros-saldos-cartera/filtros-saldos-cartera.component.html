@@ -72,10 +72,10 @@
     </div>
 </div>
 <div class="d-flex p-3 align-items-center fondo-gris-oscuro">
-    <span class="texto-gris fs-14px">
+    <span class="texto-gris fs-14px" *ngIf="filtros">
         <b>Periodo de consulta: </b> {{ this.filtros.anioColocacion }} - {{ this.filtros.mesColocacion }} 
     </span>
     <span class="ms-auto">
-        <button class="boton primario relleno alterno">Exportar datos</button>
+        <button class="boton primario relleno alterno" [disabled]="!filtros" (click)="exportar()">Exportar datos</button>
     </span>
 </div>

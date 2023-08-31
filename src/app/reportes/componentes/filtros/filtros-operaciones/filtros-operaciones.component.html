@@ -145,6 +145,6 @@
         <b>Periodo de consulta: </b> {{ filtros.anioColocacion }} - {{ filtros.mesColocacion }} 
     </span>
     <span class="ms-auto">
-        <button class="boton primario relleno alterno">Exportar datos</button>
+        <button class="boton primario relleno alterno" [disabled]="!filtros" (click)="exportar()">Exportar datos</button>
     </span>
 </div>

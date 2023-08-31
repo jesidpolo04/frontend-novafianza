@@ -40,4 +40,41 @@ export class ServicioReportes extends Autenticable{
     const endpoint = '/api/v1/reportes/productos'
     return this.http.post<Producto[]>(`${this.host}${endpoint}`, {empresa}, { headers: this.obtenerCabeceraAutorizacion() })
   }
+
+  exportarOperaciones(filtros: FiltrosOperaciones){
+    let endpoint = `/api/v1/reportes/exportOperacion?empresa=${filtros.empresa}`
+    if(filtros.anioColocacion){
+      endpoint+= `&anioColocacion=${filtros.anioColocacion}`
+    }
+    if(filtros.mesColocacion){
+      endpoint+= `&mesColocacion=${filtros.mesColocacion}`
+    }
+    if(filtros.fechaInicioDesembolso){
+      endpoint+= `&fechaInicioDesembolso=${filtros.fechaInicioDesembolso}`
+    }
+    if(filtros.fechaFinalDesembolso){
+      endpoint+= `&fechaFinalDesembolso=${filtros.fechaFinalDesembolso}`
+    }
+    const a = document.createElement('a')
+    a.setAttribute('target', '_blank')
+    a.setAttribute('href', `${this.host}${endpoint}`)
+    a.click()
+  }
+
+  exportarSaldosCartera(filtros: FiltrosSaldosCartera){
+    let endpoint = `/api/v1/reportes/exportSaldosCartera?anioColocacion=${filtros.anioColocacion}&mesColocacion=${filtros.mesColocacion}&empresa=${filtros.empresa}`
+    if(filtros.genero){
+      endpoint+= `&genero=${filtros.genero}`
+    }
+    if(filtros.departamento){
+      endpoint+= `&departamento=${filtros.departamento}`
+    }
+    if(filtros.alturaDeMora){
+      endpoint+= `&alturaDeMora=${filtros.alturaDeMora}`
+    }
+    const a = document.createElement('a')
+    a.setAttribute('target', '_blank')
+    a.setAttribute('href', `${this.host}${endpoint}`)
+    a.click()
+  }
 }

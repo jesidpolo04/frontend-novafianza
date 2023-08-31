@@ -19,6 +19,7 @@ import { DatosInsuficientesComponent } from './componentes/datos-insuficientes/d
 import { EvolucionCarteraComponent } from './componentes/evolucion-cartera/evolucion-cartera.component';
 import { AmortizacionCarteraComponent } from './componentes/amortizacion-cartera/amortizacion-cartera.component';
 import { TacometroComponent } from './componentes/tacometro/tacometro.component';
+import { AlertasModule } from '../alertas/alertas.module';
 
 
 
@@ -46,7 +47,8 @@ import { TacometroComponent } from './componentes/tacometro/tacometro.component'
     CommonModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AlertasModule
   ]
 })
 export class ReportesModule { }

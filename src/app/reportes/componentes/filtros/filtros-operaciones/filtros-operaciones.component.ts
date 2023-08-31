@@ -38,7 +38,8 @@ export class FiltrosOperacionesComponent implements OnInit {
 
   constructor(
     private servicioLocalStorage: ServicioLocalStorage,
-    private servicioEmpresas: ServicioEmpresa
+    private servicioEmpresas: ServicioEmpresa,
+    private servicioReporte: ServicioReportes
   ) {
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     if (!usuario) throw Error("Usuario no identificado.");
@@ -66,11 +67,6 @@ export class FiltrosOperacionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filtros = {
-      empresa: this.empresa,
-      fechaFinalDesembolso: this.fechaFinal.toFormat(FormatoFechas.FECHA_SAFIX),
-      fechaInicioDesembolso: this.fechaInicial.toFormat(FormatoFechas.FECHA_SAFIX)
-    }
     this.servicioEmpresas.obtenerEmpresas(1, 500).subscribe({
       next: (respuesta) => {
         this.empresas = respuesta.empresas
@@ -142,5 +138,12 @@ export class FiltrosOperacionesComponent implements OnInit {
     }else{
       throw new Error('Tipo de filtro inválido o no seleccionado.')
     }
+  }
+
+  exportar(){
+    if(!this.filtros){
+      return;
+    }
+    this.servicioReporte.exportarOperaciones(this.filtros)
   }
 }

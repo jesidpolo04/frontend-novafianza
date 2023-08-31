@@ -3,6 +3,8 @@ import { FiltrosColocacion } from 'src/app/reportes/modelos/Filtros/FiltrosColoc
 import { ReporteColocacion } from 'src/app/reportes/modelos/ReporteColocacion';
 import { ServicioReportes } from 'src/app/reportes/servicios/reportes.service';
 import { GraficoLineasComponent } from '../../grafico-lineas/grafico-lineas.component';
+import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-pagina-reporte-colocacion',
@@ -10,6 +12,7 @@ import { GraficoLineasComponent } from '../../grafico-lineas/grafico-lineas.comp
   styleUrls: ['./pagina-reporte-colocacion.component.css']
 })
 export class PaginaReporteColocacionComponent implements OnInit {
+  @ViewChild('popup') popup!: PopupComponent
   @ViewChild('graficoColocacion') graficoColocacion!: GraficoLineasComponent
   reporte?: ReporteColocacion
   filtros?: FiltrosColocacion
@@ -27,9 +30,11 @@ export class PaginaReporteColocacionComponent implements OnInit {
         this.reporte = reporte
         this.cargandoReporte = false
       },
-      error: (error)=>{
+      error: (error: HttpErrorResponse)=>{
         this.cargandoReporte = false
-        console.error(error)
+        if(error.status === 422){
+          this.popup.abrirPopupFallido("Filtros incorrectos.", "Debes seleccionar un producto para consultar.")
+        }
       }
     })
   }
