@@ -6,6 +6,7 @@ export interface ResumenColocacion{
     creditosPorCliente: number;
     coberturaSobreColocacion: number;
     creditoMaximo: number;
+    valorColocacion: number;
     variacionMesAnterior: number;
     variacionAnioAnterior: number;
     variacionRangoAnterior: number;

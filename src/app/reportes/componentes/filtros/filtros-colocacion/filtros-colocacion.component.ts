@@ -42,13 +42,12 @@ export class FiltrosColocacionComponent implements OnInit {
     if (usuario.idEmpresa) {
       this.esUsuarioEmpresa = true
       this.empresa = usuario.idEmpresa
-      console.log('this.empresa',this.empresa)
     } else {
       this.esUsuarioEmpresa = false
       this.empresa = ""
     }
     const fechaActual = DateTime.now()
-    this.fechaFinal = DateTime.now().plus({ month: 1 }).set({ day: 1 }).minus({ days: 1 })
+    this.fechaFinal = DateTime.now().plus({ month: 1 }).set({ day: 1 })
     this.fechaInicial = DateTime.now().minus({ months: 3 }).set({ day: 1 })
     this.nuevosFiltros = new EventEmitter<FiltrosColocacion>();
     this.producto = ""
@@ -82,7 +81,6 @@ export class FiltrosColocacionComponent implements OnInit {
         this.productos = productos
         if(this.productos.length > 0){
           this.producto = this.productos[0].codigoProductoInterno
-          console.log('this.producto', this.producto)
         }
       }
     });
@@ -111,7 +109,7 @@ export class FiltrosColocacionComponent implements OnInit {
       this.fechaFinal = this.fechaFinal.set({ year: anio })
     }
     if (mes) {
-      this.fechaFinal = this.fechaFinal.set({ month: mes })
+      this.fechaFinal = this.fechaFinal.set({ month: mes, day: 1 }).plus({ month: 1 })
     }
   }
 

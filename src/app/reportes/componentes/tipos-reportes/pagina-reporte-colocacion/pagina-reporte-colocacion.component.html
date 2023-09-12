@@ -14,7 +14,7 @@
 
     <div class="resumen">
         <span class="titulo">Valor colocación</span>
-        <span class="valor">{{ 0 | currency: '' : 'symbol' : '1.0-0' }}</span>
+        <span class="valor">{{ reporte.resumen.valorColocacion | currency: '' : 'symbol' : '1.0-0' }}</span>
     </div>
 
     <div class="resumen">
@@ -63,10 +63,17 @@
 <!--                     <button (click)="entrarEnPantallaCompleta(graficoColocacion)">Pantalla completa</button>
  -->                </div>
                 <div class="card-body bg-white" #graficoColocacion>
+                    <app-cargando-grafico *ngIf="!reporte"></app-cargando-grafico>
                     <app-grafico-lineas
-                    #graficoColocacion 
+                    #graficoColocacion
+                    *ngIf="reporte && reporte.colocacion.tipo === 'LINEA'"
                     [cargando]="cargandoReporte" 
                     [grafico]="reporte ? reporte.colocacion: undefined"></app-grafico-lineas>
+                    <app-grafico-barras
+                    #graficoColocacion
+                    *ngIf="reporte && reporte.colocacion.tipo === 'BARRAS'"
+                    [cargando]="cargandoReporte"
+                    [grafico]="reporte ? reporte.colocacion : undefined"></app-grafico-barras>
                 </div>
             </div>
         </div>
@@ -76,9 +83,15 @@
                     <span class="fw-semibold fs-14px">Fianzas netas (Valores representados en millones)</span>
                 </div>
                 <div class="card-body">
-                    <app-grafico-lineas 
+                    <app-cargando-grafico *ngIf="!reporte"></app-cargando-grafico>
+                    <app-grafico-lineas
+                    *ngIf="reporte && reporte.fianzasNetas.tipo === 'LINEA'" 
                     [cargando]="cargandoReporte" 
                     [grafico]="reporte ? reporte.fianzasNetas : undefined"></app-grafico-lineas>
+                    <app-grafico-barras
+                    *ngIf="reporte && reporte.fianzasNetas.tipo === 'BARRAS'"
+                    [cargando]="cargandoReporte"
+                    [grafico]="reporte ? reporte.fianzasNetas : undefined"></app-grafico-barras>
                 </div>
             </div>
         </div>
