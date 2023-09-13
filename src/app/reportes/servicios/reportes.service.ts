@@ -77,4 +77,12 @@ export class ServicioReportes extends Autenticable{
     a.setAttribute('href', `${this.host}${endpoint}`)
     a.click()
   }
+
+  exportarColocacion(filtros: FiltrosColocacion){
+    let endpoint = `/api/v1/reportes/exportColocacion?fechaInicioCorte=${filtros.fechaInicioCorte}&fechaFinalCorte=${filtros.fechaFinalCorte}&empresa=${filtros.empresa}&producto=${filtros.producto}`
+    const a = document.createElement('a')
+    a.setAttribute('target', '_blank')
+    a.setAttribute('href', `${this.host}${endpoint}`)
+    a.click()
+  }
 }

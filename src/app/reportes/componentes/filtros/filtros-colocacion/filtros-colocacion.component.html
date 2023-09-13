@@ -97,7 +97,7 @@
         <button class="boton primario sin-borde me-2">
             Limpiar filtros
         </button>
-        <button class="boton primario relleno" (click)="actualizarFiltros()" (keydown.enter)="actualizarFiltros()">
+        <button [disabled]="cargando" class="boton primario relleno" (click)="actualizarFiltros()" (keydown.enter)="actualizarFiltros()">
             Aplicar los filtros
         </button>
     </div>

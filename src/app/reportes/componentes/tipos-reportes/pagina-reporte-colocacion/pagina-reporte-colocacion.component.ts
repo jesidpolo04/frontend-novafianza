@@ -16,7 +16,7 @@ export class PaginaReporteColocacionComponent implements OnInit {
   @ViewChild('graficoColocacion') graficoColocacion!: GraficoLineasComponent
   reporte?: ReporteColocacion
   filtros?: FiltrosColocacion
-  cargandoReporte: boolean = true
+  cargandoReporte: boolean = false
 
   constructor(private servicioReportes: ServicioReportes) { }
 
@@ -28,19 +28,27 @@ export class PaginaReporteColocacionComponent implements OnInit {
     this.servicioReportes.obtenerColocacion(filtros).subscribe({
       next: (reporte)=>{
         this.reporte = reporte
-        this.cargandoReporte = false
       },
       error: (error: HttpErrorResponse)=>{
-        this.cargandoReporte = false
         if(error.status === 422){
           this.popup.abrirPopupFallido("Filtros incorrectos.", "Debes seleccionar un producto para consultar.")
         }
+      },
+      complete: ()=>{
+        this.cargandoReporte = false
       }
     })
   }
 
   entrarEnPantallaCompleta(elemento: HTMLDivElement){
       elemento.requestFullscreen()
+  }
+
+  exportar(){
+    if(!this.filtros){
+      return;
+    }
+    this.servicioReportes.exportarColocacion(this.filtros)
   }
 
 }

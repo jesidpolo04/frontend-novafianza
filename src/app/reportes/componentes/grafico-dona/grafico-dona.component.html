@@ -1,7 +1,7 @@
-<div class="d-flex w-100 align-items-center justify-content-center" [ngClass]="{'d-none': cargando || datosInsuficientes}">
+<div class="d-flex w-100 align-items-center justify-content-center" [ngClass]="{'d-none': cargando || datosInsuficientes || !informacionGrafico}">
     <div class="w-75">
         <canvas #canvas></canvas>
     </div>
 </div>
-<app-cargando-grafico *ngIf="cargando"></app-cargando-grafico>
+<app-cargando-grafico *ngIf="cargando || !informacionGrafico"></app-cargando-grafico>
 <app-datos-insuficientes *ngIf="datosInsuficientes && !cargando"></app-datos-insuficientes>

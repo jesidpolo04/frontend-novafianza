@@ -1,10 +1,12 @@
-<app-filtros-colocacion (nuevosFiltros)="obtenerColocacion($event)"></app-filtros-colocacion>
+<app-filtros-colocacion
+[cargando]="cargandoReporte" 
+(nuevosFiltros)="obtenerColocacion($event)"></app-filtros-colocacion>
 <div class="d-flex p-3 align-items-center fondo-gris-oscuro">
     <span class="texto-gris fs-14px" *ngIf="filtros">
         <b>Periodo de consulta: </b> {{ filtros.fechaInicioCorte }} al {{ filtros.fechaFinalCorte }} 
     </span>
     <span class="ms-auto">
-        <button class="boton primario relleno alterno">Exportar datos</button>
+        <button class="boton primario relleno alterno" (click)="exportar()" [disabled]="!filtros">Exportar datos</button>
     </span>
 </div>
 <div class="contenedor-resumen d-flex p-3 align-items-stretch flex-gap-10" *ngIf="reporte">

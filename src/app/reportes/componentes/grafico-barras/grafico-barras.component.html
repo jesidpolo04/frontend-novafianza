@@ -1,5 +1,5 @@
 <div class="w-100">
-    <canvas #canvas [ngClass]="{'d-none': cargando || datosInsuficientes}"></canvas>
+    <canvas #canvas [ngClass]="{'d-none': cargando || datosInsuficientes || !informacionGrafico}"></canvas>
 </div>
-<app-cargando-grafico *ngIf="cargando"></app-cargando-grafico>
+<app-cargando-grafico *ngIf="cargando || !informacionGrafico"></app-cargando-grafico>
 <app-datos-insuficientes *ngIf="datosInsuficientes && !cargando"></app-datos-insuficientes>

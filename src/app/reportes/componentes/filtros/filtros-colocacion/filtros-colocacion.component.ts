@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Empresa } from 'src/app/administrador/modelos/empresas/Empresa';
 import { ServicioEmpresa } from 'src/app/administrador/servicios/empresas.service';
@@ -14,6 +14,7 @@ import { ServicioReportes } from 'src/app/reportes/servicios/reportes.service';
   styleUrls: ['./filtros-colocacion.component.css']
 })
 export class FiltrosColocacionComponent implements OnInit {
+  @Input() cargando = false
   @Output('nuevosFiltros') nuevosFiltros: EventEmitter<FiltrosColocacion>;
 
   producto: string;
@@ -81,6 +82,12 @@ export class FiltrosColocacionComponent implements OnInit {
         this.productos = productos
         if(this.productos.length > 0){
           this.producto = this.productos[0].codigoProductoInterno
+          this.filtros = {
+            empresa: this.empresa,
+            fechaInicioCorte: this.fechaInicial.toFormat(FormatoFechas.FECHA_SAFIX),
+            fechaFinalCorte: this.fechaFinal.toFormat(FormatoFechas.FECHA_SAFIX),
+            producto: this.producto
+          }
         }
       }
     });
