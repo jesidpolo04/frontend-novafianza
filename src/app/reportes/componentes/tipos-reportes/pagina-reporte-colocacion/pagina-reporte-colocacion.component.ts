@@ -30,6 +30,7 @@ export class PaginaReporteColocacionComponent implements OnInit {
         this.reporte = reporte
       },
       error: (error: HttpErrorResponse)=>{
+        this.cargandoReporte = false
         if(error.status === 422){
           this.popup.abrirPopupFallido("Filtros incorrectos.", "Debes seleccionar un producto para consultar.")
         }
