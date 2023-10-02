@@ -41,6 +41,13 @@ export class GraficoDonaComponent implements OnInit, AfterViewInit, OnChanges {
     if(!this.informacionGrafico!) return;
     this.grafico = new Chart<'doughnut', (number | null)[]>(this.canvas.nativeElement, {
       type: 'doughnut',
+      options: {
+        plugins: {
+          legend: {
+            maxHeight: 1000
+          }
+        }
+      },
       plugins: [{
         id: 'doughnutLabelsLine',
         afterDraw(chart, args, options){

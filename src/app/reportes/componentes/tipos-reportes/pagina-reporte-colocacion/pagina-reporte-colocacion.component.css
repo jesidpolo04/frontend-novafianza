@@ -5,7 +5,8 @@
 }
 
 .contenedor-resumen{
-    background-color: #EEEEEE; 
+    background-color: #EEEEEE;
+    overflow-x: scroll;
 }
 .resumen{
     /* max-height: 76px; */

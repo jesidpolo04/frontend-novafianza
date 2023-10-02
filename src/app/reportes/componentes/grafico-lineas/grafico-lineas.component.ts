@@ -44,6 +44,7 @@ export class GraficoLineasComponent implements OnInit, AfterViewInit, OnChanges 
       type: 'line',
       plugins: [pluginDataLabel],
       options: {
+
         plugins: {
           datalabels: {
             anchor: 'end',
@@ -62,8 +63,8 @@ export class GraficoLineasComponent implements OnInit, AfterViewInit, OnChanges 
             label: gd.etiqueta,
             borderColor: gd.color,
             backgroundColor: gd.color,
-            spanGaps: true,
-            fill: false
+            spanGaps: false,
+            fill: false,
           }
         })
       },

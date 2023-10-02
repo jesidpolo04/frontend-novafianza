@@ -6,7 +6,8 @@
 
 .contenedor-resumen {
     background-color: #EEEEEE;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
 }
 
 .resumen {
