@@ -6,4 +6,5 @@ export interface ArchivoCargado {
     tipoCarga: string;
     estadoValidacion:  string;
     estadoValidacionEstructura:  string;
+    observacion: string
 }
