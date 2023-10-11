@@ -6,4 +6,5 @@ export interface Operaciones{
     valorReclamadoTotal: number
     valorRecuperado: number
     valorDisponibleVigente: number
+    valorPendienteReclamar: number
 }

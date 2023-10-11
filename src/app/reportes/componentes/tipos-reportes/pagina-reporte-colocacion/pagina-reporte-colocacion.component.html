@@ -150,9 +150,9 @@
                 <div class="card-body">
                     <app-cargando-grafico *ngIf="!reporte"></app-cargando-grafico>
                     <div class="table-responsive custom-scroll" *ngIf="reporte">
-                        <table class="table fs-14px fw-semibold">
+                        <table class="table fs-14px">
                             <thead>
-                                <tr class="">
+                                <tr class="fw-semibold">
                                     <th>Fecha</th>
                                     <th>Vlr colocación</th>
                                     <th>Núm créditos</th>
@@ -172,13 +172,13 @@
                                     <td>{{ cobDisp.numeroCreditos }}</td>
                                     <td>{{ cobDisp.ticketPromedio }}</td>
                                     <td>{{ cobDisp.plazoPromedio }}</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
+                                    <td>{{ cobDisp.saldo }}</td>
+                                    <td>{{ cobDisp.valorDisponibleFianzaFija }}</td>
+                                    <td>{{ cobDisp.valorDisponibleFianzaVariable }}</td>
+                                    <td>{{ cobDisp.valorTotalDisponible }}</td>
+                                    <td>{{ cobDisp.valorTotalDisponibleColocacion }}</td>
                                 </tr>
-                                <tr>
+                                <tr *ngIf="reporte.coberturasDisponibles.length < 1">
                                     <td colspan="10" class="text-center">
                                         <span class="fw-semibold fs-14px texto-centrado">No hay datos para mostrar.</span>
                                     </td>

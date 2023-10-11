@@ -61,7 +61,7 @@
                                 <td>{{ operacion.valorComercializacion | currency: '' : 'symbol' : '1.0-0' }}</td>
                                 <td>{{ operacion.valorDisponiblePagosGenerados | currency: '' : 'symbol' : '1.0-0' }}</td>
                                 <td>{{ operacion.valorReclamado | currency: '' : 'symbol' : '1.0-0' }}</td>
-                                <td> - </td>
+                                <td>{{ operacion.valorPendienteReclamar | currency: '' : 'symbol' : '1.0-0' }}</td>
                             </tr>
                             <tr *ngIf="operaciones.resumenOperaciones.length < 1">
                                 <td colspan="9" class="fw-semibold text-center">No se encontraron resultados.</td>
