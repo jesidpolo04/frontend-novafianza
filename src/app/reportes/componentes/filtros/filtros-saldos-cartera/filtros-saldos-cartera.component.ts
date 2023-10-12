@@ -94,7 +94,7 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
     let fechaCierre = DateTime.fromFormat(this.fechaCierre, "yyyy-MM")
     this.filtros = {
       anioColocacion: fechaCierre.toFormat('yyyy'),
-      mesColocacion: fechaCierre.toFormat('MM'),
+      mesColocacion: fechaCierre.month.toString(),
       alturaDeMora: this.alturaDeMora,
       departamento: this.tienda,
       genero: this.genero,

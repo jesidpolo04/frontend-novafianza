@@ -48,7 +48,7 @@ export class FiltrosColocacionComponent implements OnInit {
       this.empresa = ""
     }
     const fechaActual = DateTime.now()
-    this.fechaFinal = DateTime.now().plus({ month: 1 }).set({ day: 1 })
+    this.fechaFinal = DateTime.now().plus({ month: 1 }).set({ day: 1 }).minus({ days: 1 })
     this.fechaInicial = DateTime.now().minus({ months: 3 }).set({ day: 1 })
     this.nuevosFiltros = new EventEmitter<FiltrosColocacion>();
     this.producto = ""
@@ -116,7 +116,7 @@ export class FiltrosColocacionComponent implements OnInit {
       this.fechaFinal = this.fechaFinal.set({ year: anio })
     }
     if (mes) {
-      this.fechaFinal = this.fechaFinal.set({ month: mes, day: 1 }).plus({ month: 1 })
+      this.fechaFinal = this.fechaFinal.set({ month: mes, day: 1 }).plus({ month: 1 }).minus({ days: 1 })
     }
   }
 
