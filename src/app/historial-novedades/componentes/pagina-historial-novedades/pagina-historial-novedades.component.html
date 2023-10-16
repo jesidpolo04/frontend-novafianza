@@ -93,6 +93,11 @@
                                             <img class="me-2" src="assets/img/alerta.svg" alt="Exitoso, con alertas">
                                             <span class="fs-12px text-info fw-bold">Exitoso con alertas</span>
                                         </ng-container>
+
+                                        <ng-container *ngIf="archivoCargado.estadoValidacion === 'Pendiente de aprobación' ">
+                                            <img class="me-2" src="assets/img/procesando.svg" alt="Pendiente de aprobación">
+                                            <span class="fs-12px text-info fw-bold">Pendiente de aprobación</span>
+                                        </ng-container>
                                     </td>
                                     <td>
                                         {{ archivoCargado.observacion }}
