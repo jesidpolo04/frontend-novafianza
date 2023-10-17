@@ -19,6 +19,7 @@ import { PaginaReportesComponent } from './reportes/componentes/pagina-reportes/
 import { PaginaReporteColocacionComponent } from './reportes/componentes/tipos-reportes/pagina-reporte-colocacion/pagina-reporte-colocacion.component';
 import { PaginaReporteSaldosCarteraComponent } from './reportes/componentes/tipos-reportes/pagina-reporte-saldos-cartera/pagina-reporte-saldos-cartera.component';
 import { PaginaReporteOperacionesComponent } from './reportes/componentes/tipos-reportes/pagina-reporte-operaciones/pagina-reporte-operaciones.component';
+import { PaginaCorreosOperacionesComponent } from './correos-operaciones/paginas/pagina-correos-operaciones/pagina-correos-operaciones.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'administrar',
     component: PlantillaComponent,
     children: [
+      {
+        path: 'correos_operaciones',
+        component: PaginaCorreosOperacionesComponent
+      },
       {
         path: 'visualizar_variables',
         component: PaginaVisualizacionVariablesComponent

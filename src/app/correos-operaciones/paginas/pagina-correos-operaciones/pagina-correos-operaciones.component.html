@@ -1,0 +1,63 @@
+<div class="d-flex flex-column flex-gap-30 p-4">
+    <div class="d-flex justify-content-end">
+        <button type="button" class="boton primario relleno" (click)="abrirModalCrearCorreo()">
+          <img src="assets/img/+.svg" class="me-1" /> Crear correo
+        </button>
+      </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card w-100">
+                <div class="card-header fw-bold fs-14px">
+                    Administrar correos operaciones
+                </div>
+                <div class="card-body">
+                    <div class="container-table d-flex table-responsive">
+                        <table class="table table-striped fs-12px">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Correo</th>
+                                    <th>
+                                        Acciones <br>
+                                        <label class="acciones me-2">Editar</label>
+                                        <label class="acciones me-2">Estado</label>
+                                        <label class="acciones me-2">Eliminar</label>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let correo of correos; let index = index">
+                                    <td>{{ correo.id }}</td>
+                                    <td>{{ correo.correo }}</td>
+                                    <td>
+                                        <div class="d-flex flex-gap-20">
+                                            <img class="cursor-pointer" draggable="false" src="./assets/img/editar.svg"
+                                                alt="editar" (click)="abrirModalActualizarCorreo(correo)">
+                                            <label class="switch">
+                                                <input type="checkbox" [checked]="correo.estado"
+                                                    (change)="cambiarEstadoCorreo(correo)">
+                                                <span class="slider round"></span>
+                                            </label>
+                                            <span class="acciones cursor-pointer" (click)="eliminarCorreo(correo)">Eliminar</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="correos.length == 0">
+                                    <td colspan="6">
+                                        <label class="d-flex justify-content-center fs-14px">
+                                            Aun no hay correos registrados
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-popup #popup></app-popup>
+<app-modal-actualizar-correo #modalActualizar (correoActualizado)="manejarCorreoActualizado()"></app-modal-actualizar-correo>
+<app-modal-crear-correo #modalCrear (correoCreado)="manejarCorreoCreado()"></app-modal-crear-correo>

@@ -1,0 +1,29 @@
+<ng-template #modal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title fs-14px  fw-bolder">Actualizar correo</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="this.formulario" class="d-flex flex-column flex-gap-10">
+            <div class="row">
+                <div class="col">
+                    <fieldset>
+                        <label class="fw-semibold fs-12px">Correo</label>
+                        <input class="form-control input" formControlName="correo">
+                        <span class="validacion" *ngIf="this.formulario.controls.correo.invalid &&
+                            this.formulario.controls.correo.dirty">
+                            Correo inválido.
+                        </span>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="boton primario relleno" (click)="actualizarCorreo()">
+            <img src="assets/img/+.svg" alt="" >
+            Guardar cambios
+        </button>
+    </div>
+</ng-template>
+<app-popup #popup></app-popup>

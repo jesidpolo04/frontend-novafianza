@@ -18,6 +18,7 @@ import { AlertasModule } from '../alertas/alertas.module';
 import { UsuariosModule } from '../usuarios/usuarios.module';
 import { VariablesModule } from '../variables/variables.module';
 import { ReportesModule } from '../reportes/reportes.module';
+import { CorreosOperacionesModule } from '../correos-operaciones/correos-operaciones.module';
 
 
 
@@ -35,6 +36,7 @@ import { ReportesModule } from '../reportes/reportes.module';
     HistorialNovedadesModule,
     ArchivosModule,
     EmpresasModule,
+    CorreosOperacionesModule,
     AlertasModule,
     UsuariosModule,
     VariablesModule,
