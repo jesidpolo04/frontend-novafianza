@@ -5,6 +5,8 @@ import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.componen
 import { CargarArchivosService } from '../../servicios/cargar-archivos.service';
 import { TipoArchivo } from '../../modelos/TipoArchivo';
 import { FormatoArchivo } from '../../modelos/FormatoArchivo';
+import { TipoServicio } from '../../modelos/TipoServicio';
+import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Utilidades';
 
 @Component({
   selector: 'app-modal-actualizar-archivo',
@@ -17,6 +19,7 @@ export class ModalActualizarArchivoComponent implements OnInit {
   archivo?: TipoArchivo
   formulario: FormGroup
   formatosArchivo: FormatoArchivo[] = []
+  tiposServicios: TipoServicio[] = []
 
   constructor(private servicioModal: NgbModal, private servicioArchivos: CargarArchivosService) { 
     this.formulario = new FormGroup({
@@ -24,15 +27,25 @@ export class ModalActualizarArchivoComponent implements OnInit {
       descripcion: new FormControl<string>('', [ Validators.required ]),
       formato: new FormControl<string>('', [ Validators.required ]),
       manual: new FormControl<string>('', []),
+      prefijoCarga: new FormControl<string>('', [ Validators.required ]),
+      prefijoParametrizacion: new FormControl<string>('', [ Validators.required ]),
+      tipoServicio: new FormControl<number | null>(null, [ Validators.required ]),
     })
   }
 
   actualizarTipoArchivo(){
+    if(this.formulario.invalid){
+      marcarFormularioComoSucio(this.formulario)
+      return;
+    }
     const controles = this.formulario.controls
     this.servicioArchivos.actualizarTipoArchivo(this.archivo!.id, {
       descripcion: controles['descripcion'].value,
       formatoId: controles['formato'].value,
-      nombre: controles['nombre'].value
+      nombre: controles['nombre'].value,
+      prefijo: controles['prefijoCarga'].value,
+      prefijoParametrizacion: controles['prefijoParametrizacion'].value,
+      tipoServicio: controles['tipoServicio'].value
     }).subscribe({
       next: ()=> {
         this.popup.abrirPopupExitoso('Se ha actualizado el servicio exitosamente.')
@@ -41,6 +54,7 @@ export class ModalActualizarArchivoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.obtenerTiposServicios()
     this.obtenerFormatosArchivo(1, 100)
   }
 
@@ -48,6 +62,14 @@ export class ModalActualizarArchivoComponent implements OnInit {
     this.servicioArchivos.obtenerFormatosArchivo(pagina, limite).subscribe({
       next: (respuesta)=>{
         this.formatosArchivo = respuesta.formatosArchivos
+      }
+    })
+  }
+
+  obtenerTiposServicios(){
+    this.servicioArchivos.obtenerTiposServicios().subscribe({
+      next: (tiposServicios)=>{
+        this.tiposServicios = tiposServicios
       }
     })
   }
@@ -72,6 +94,9 @@ export class ModalActualizarArchivoComponent implements OnInit {
     controles['nombre'].setValue(archivo.nombre)
     controles['descripcion'].setValue(archivo.descripcion)
     controles['formato'].setValue(archivo.formatoId)
+    controles['prefijoCarga'].setValue(archivo.prefijo)
+    controles['prefijoParametrizacion'].setValue(archivo.prefijoParametrizacion)
+    controles['tipoServicio'].setValue(archivo.tipo)
   }
 
 }

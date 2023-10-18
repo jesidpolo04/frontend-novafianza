@@ -3,9 +3,10 @@ export interface TipoArchivo {
     nombre:         string;
     descripcion:    string;
     formatoId:      string;
-    tipo:           string;
+    tipo:           number;
     prefijo:        string;
     prefijoArchivo: string;
+    prefijoParametrizacion: string;
     estado:         boolean;
     createdAt:      string;
 }

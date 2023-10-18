@@ -46,6 +46,41 @@
                     </fieldset>
                 </div>
             </div>
+            
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <fieldset>
+                        <label>Prefijo carga</label>
+                        <input formControlName="prefijoCarga" type="text" class="form-control">
+                        <app-validacion [control]="formulario.controls['prefijoCarga']" [validacion]="'required'"
+                            [texto]="'El campo es requerido.'">
+                        </app-validacion>
+                    </fieldset>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <fieldset>
+                        <label>Prefijo parametrización</label>
+                        <input formControlName="prefijoParametrizacion" type="text" class="form-control">
+                        <app-validacion [control]="formulario.controls['prefijoParametrizacion']" [validacion]="'required'"
+                            [texto]="'El campo es requerido.'">
+                        </app-validacion>
+                    </fieldset>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <fieldset>
+                        <label>Tipo de servicio</label>
+                        <select formControlName="tipoServicio" class="form-select">
+                            <option [value]="null">Selecciona un tipo.</option>
+                            <option *ngFor="let tipo of tiposServicios" [value]="tipo.id">
+                                {{ tipo.nombre }}
+                            </option>
+                        </select>
+                        <app-validacion [control]="formulario.controls['tipoServicio']" [validacion]="'required'"
+                        [texto]="'El campo es requerido.'">
+                    </app-validacion>
+                    </fieldset>
+                </div>
+            </div>
 <!--             <div class="row">
                 <div class="col">
                     <fieldset>

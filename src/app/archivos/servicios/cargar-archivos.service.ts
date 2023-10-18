@@ -6,6 +6,7 @@ import { TipoArchivo } from '../modelos/TipoArchivo';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { FormatoArchivo } from '../modelos/FormatoArchivo';
 import { PeticionCrearTipoArchivo } from '../modelos/PeticionCrearTipoArchivo';
+import { TipoServicio } from '../modelos/TipoServicio';
 
 @Injectable({
   providedIn: 'root'
@@ -38,10 +39,11 @@ export class CargarArchivosService extends Autenticable {
     const endpoint = '/api/v1/archivo/registro'
     const formData = new FormData()
     formData.append('nombre', peticion.nombre)
-    formData.append('prefijo', 'PP')
-    formData.append('prefijoArchivo', 'T')
+    formData.append('prefijo', peticion.prefijo)
+    formData.append('prefijoParametrizacion', peticion.prefijoParametrizacion)
     formData.append('formatoId', peticion.formatoId)
     formData.append('descripcion', peticion.descripcion)
+    formData.append('tipo', peticion.tipoServicio.toString())
     return this.clienteHttp.post(
       `${this.HOST}${endpoint}`,
       formData,
@@ -60,6 +62,14 @@ export class CargarArchivosService extends Autenticable {
     return this.clienteHttp.patch(
       `${this.HOST}${endpoint}`,
       formData,
+      { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } } 
+    )
+  }
+
+  obtenerTiposServicios(){
+    const endpoint = '/api/v1/maestra/tipo-servicio'
+    return this.clienteHttp.get<TipoServicio[]>(
+      `${this.HOST}${endpoint}`,
       { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } } 
     )
   }
