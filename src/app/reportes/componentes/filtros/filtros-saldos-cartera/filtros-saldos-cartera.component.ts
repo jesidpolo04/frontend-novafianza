@@ -49,7 +49,7 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
 
     let fechaActual = DateTime.now()
 
-    this.fechaCierre = fechaActual.toFormat('yyyy-MM')
+    this.fechaCierre = fechaActual.toFormat('yyyy-MM-dd')
     this.alturaDeMora = 'Mayor_30',
     this.tienda = ""
     this.genero = ""
@@ -75,14 +75,13 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
   reiniciarFiltros(){
     let fechaActual = DateTime.now()
 
-    this.fechaCierre = fechaActual.toFormat('yyyy-MM')
+    this.fechaCierre = fechaActual.toFormat('yyyy-MM-dd')
     this.alturaDeMora = 'Mayor_30',
     this.tienda = ""
     this.genero = ""
 
     this.filtros = {
-      anioColocacion: fechaActual.year.toString(),
-      mesColocacion: fechaActual.month.toString(),
+      fechaCierre: this.fechaCierre,
       alturaDeMora: this.alturaDeMora,
       departamento: this.tienda,
       genero: this.genero,
@@ -91,10 +90,8 @@ export class FiltrosSaldosCarteraComponent implements OnInit {
   }
 
   actualizarFiltros(){
-    let fechaCierre = DateTime.fromFormat(this.fechaCierre, "yyyy-MM")
     this.filtros = {
-      anioColocacion: fechaCierre.toFormat('yyyy'),
-      mesColocacion: fechaCierre.month.toString(),
+      fechaCierre: this.fechaCierre,
       alturaDeMora: this.alturaDeMora,
       departamento: this.tienda,
       genero: this.genero,

@@ -62,7 +62,7 @@ export class ServicioReportes extends Autenticable{
   }
 
   exportarSaldosCartera(filtros: FiltrosSaldosCartera){
-    let endpoint = `/api/v1/reportes/exportSaldosCartera?anioColocacion=${filtros.anioColocacion}&mesColocacion=${filtros.mesColocacion}&empresa=${filtros.empresa}`
+    let endpoint = `/api/v1/reportes/exportSaldosCartera?fechaCierre=${filtros.fechaCierre}&empresa=${filtros.empresa}`
     if(filtros.genero){
       endpoint+= `&genero=${filtros.genero}`
     }

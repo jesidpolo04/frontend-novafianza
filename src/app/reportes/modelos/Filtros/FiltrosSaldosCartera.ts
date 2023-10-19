@@ -1,7 +1,6 @@
 export interface FiltrosSaldosCartera{
     empresa: string
-    anioColocacion: string
-    mesColocacion: string
+    fechaCierre: string
     genero?: string
     departamento?: string
     alturaDeMora?: string

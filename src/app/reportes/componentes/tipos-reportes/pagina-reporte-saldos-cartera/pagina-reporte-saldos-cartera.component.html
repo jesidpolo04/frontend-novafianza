@@ -30,8 +30,8 @@
 
     <div class="resumen">
         <span class="titulo">Número de créditos</span>
-        <span class="valor" *ngIf="reporte">$ {{ reporte.totales.numCredtitos }}</span>
-        <span class="valor" *ngIf="!reporte">$ -</span>
+        <span class="valor" *ngIf="reporte">{{ reporte.totales.numCredtitos }}</span>
+        <span class="valor" *ngIf="!reporte">-</span>
     </div>
 
     <div class="resumen">

@@ -32,8 +32,8 @@
     
             <div class="col-3">
                 <fieldset class="filtro">
-                    <label for="">Fecha de cierre</label>
-                    <input class="form-control" type="month" id="start" name="start" min="2015-01" [(ngModel)]="fechaCierre" />
+                    <label>Fecha de cierre</label>
+                    <input class="form-control" type="date" id="start" name="start" [(ngModel)]="fechaCierre" />
                 </fieldset>
             </div>
     
@@ -73,7 +73,7 @@
 </div>
 <div class="d-flex p-3 align-items-center fondo-gris-oscuro">
     <span class="texto-gris fs-14px" *ngIf="filtros">
-        <b>Periodo de consulta: </b> {{ this.filtros.anioColocacion }} - {{ this.filtros.mesColocacion }} 
+        <b>Periodo de consulta: </b> {{ this.fechaCierre }}
     </span>
     <span class="ms-auto">
         <button class="boton primario relleno alterno" [disabled]="!filtros" (click)="exportar()">Exportar datos</button>
