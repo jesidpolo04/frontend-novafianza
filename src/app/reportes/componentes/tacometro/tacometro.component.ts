@@ -28,6 +28,7 @@ export class TacometroComponent implements OnInit, OnChanges, AfterViewInit {
     let canvas = this.canvas.nativeElement as HTMLCanvasElement;
     let ctx = canvas.getContext("2d");
     if(!ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Define el centro y el radio del círculo
     let centerX = canvas.width / 2;
