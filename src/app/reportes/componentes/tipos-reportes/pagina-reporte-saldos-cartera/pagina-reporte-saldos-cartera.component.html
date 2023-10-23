@@ -147,7 +147,7 @@
                                     <td>{{ cosecha.ticket | currency: 'symbol' : '' : '0.0-0' }}</td>
                                     <td>{{ cosecha.plazo }}</td>
                                     <td>{{ cosecha.saldo | currency: 'symbol' : '' : '0.0-0' }}</td>
-                                    <td *ngFor="let mes of cosecha.mesesMaduracion">{{ mes.valor }}</td>
+                                    <td *ngFor="let mes of cosecha.mesesMaduracion">{{ mes.valor | currency: 'symbol' : '' : '0.0-0'}}</td>
 <!--                                     <td class="exitoso">0,00%</td>
                                     <td class="exitoso">0,00%</td>
                                     <td class="riesgo">12,67%</td>
