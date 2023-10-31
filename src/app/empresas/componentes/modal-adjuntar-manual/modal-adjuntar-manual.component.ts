@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { TipoArchivo } from 'src/app/archivos/modelos/TipoArchivo';
 import { EmpresasService } from '../../servicios/empresas.service';
@@ -16,6 +16,7 @@ export class ModalAdjuntarManualComponent implements OnInit {
   formulario: FormGroup
   archivo?: TipoArchivo
   idEmpresa?: string
+  instancia?: NgbModalRef
 
   constructor(private servicioModal: NgbModal, private servicioEmpresa: EmpresasService) { 
     this.formulario = new FormGroup({
@@ -27,11 +28,17 @@ export class ModalAdjuntarManualComponent implements OnInit {
   }
 
   abrir(archivo: TipoArchivo, idEmpresa: string){
+    this.limpiarFormulario()
     this.archivo = archivo
     this.idEmpresa = idEmpresa
-    this.servicioModal.open(this.modal, {
+    this.instancia = this.servicioModal.open(this.modal, {
       size: 'xl'
     })
+  }
+
+  cerrar(){
+    this.instancia!.close()
+    this.limpiarFormulario()
   }
 
   adjuntarManual(){
@@ -46,11 +53,17 @@ export class ModalAdjuntarManualComponent implements OnInit {
     ).subscribe({
       next: () => {
         this.popup.abrirPopupExitoso(`Se guardó con éxito el documento: ${this.archivo!.nombre}`)
+        this.limpiarFormulario()
+        this.cerrar()
       },
       error: (error)=>{
         this.popup.abrirPopupFallido(`Hubo un error al momento de guardar el documento.`)
       }
     })
+  }
+
+  limpiarFormulario(){
+    this.formulario.reset()
   }
 
 }
