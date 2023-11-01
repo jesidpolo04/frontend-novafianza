@@ -59,6 +59,10 @@ export class PaginaGestionArchivosComponent implements OnInit {
     })
   }
 
+  manejarArchivoActualizado(){
+    this.paginador.inicializarPaginacion()
+  }
+
   abrirModalCrear(){
     this.modalCrear.abrir()
   }

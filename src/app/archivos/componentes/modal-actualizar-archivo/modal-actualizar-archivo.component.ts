@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
@@ -16,12 +16,14 @@ import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Util
 export class ModalActualizarArchivoComponent implements OnInit {
   @ViewChild('modal') modal!: ElementRef
   @ViewChild('popup') popup!: PopupComponent
+  @Output() archivoActualizado: EventEmitter<void>
   archivo?: TipoArchivo
   formulario: FormGroup
   formatosArchivo: FormatoArchivo[] = []
   tiposServicios: TipoServicio[] = []
 
-  constructor(private servicioModal: NgbModal, private servicioArchivos: CargarArchivosService) { 
+  constructor(private servicioModal: NgbModal, private servicioArchivos: CargarArchivosService) {
+    this.archivoActualizado = new EventEmitter<void>(); 
     this.formulario = new FormGroup({
       nombre: new FormControl<string>('', [ Validators.required ]),
       descripcion: new FormControl<string>('', [ Validators.required ]),
@@ -48,6 +50,7 @@ export class ModalActualizarArchivoComponent implements OnInit {
       tipoServicio: controles['tipoServicio'].value
     }).subscribe({
       next: ()=> {
+        this.archivoActualizado.emit()
         this.popup.abrirPopupExitoso('Se ha actualizado el servicio exitosamente.')
       }
     })
