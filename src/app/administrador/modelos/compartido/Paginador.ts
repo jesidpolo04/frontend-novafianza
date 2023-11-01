@@ -23,6 +23,8 @@ export class Paginador {
         limite: number = this.limiteRegistrosPorDefecto, 
         ...argumentos:any
     ){
+        this._paginaActual = pagina;
+        this._limiteRegistros = limite
         this._funcionObtenerRecursos(pagina, limite, ...argumentos).subscribe({
             next: (paginacion) => {
                 this.cambiarTotales(paginacion)
