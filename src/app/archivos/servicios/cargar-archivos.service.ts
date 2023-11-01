@@ -55,8 +55,8 @@ export class CargarArchivosService extends Autenticable {
     const endpoint = `/api/v1/archivo/${id}`
     const formData = new FormData()
     formData.append('nombre', peticion.nombre)
-    formData.append('prefijo', 'PP')
-    formData.append('prefijoArchivo', 'T')
+    formData.append('prefijo', peticion.prefijo)
+    formData.append('prefijoParametrizacion', peticion.prefijoParametrizacion)
     formData.append('formatoId', peticion.formatoId)
     formData.append('descripcion', peticion.descripcion)
     return this.clienteHttp.patch(
