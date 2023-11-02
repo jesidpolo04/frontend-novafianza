@@ -21,14 +21,15 @@ export class PaginaCargaArchivosComponent implements OnInit {
   public formatoInvalido: boolean = false
   public tiposArchivo: TipoArchivo[] = []
   public idEmpresa?: string
+  public manualActivo?: string
 
   constructor(
-    private servicioCabercera: ServicioCabeceraService, 
+    private servicioCabercera: ServicioCabeceraService,
     private servicioArchivo: CargarArchivosService,
     private servicioLocalStorage: ServicioLocalStorage,
     private router: Router) {
     const usuario = this.servicioLocalStorage.obtenerUsuario()
-    if(usuario!.idEmpresa){
+    if (usuario!.idEmpresa) {
       this.idEmpresa = usuario!.idEmpresa
     }
     this.servicioCabercera.actualizarTitulo(this.archivosCabecera)
@@ -44,9 +45,23 @@ export class PaginaCargaArchivosComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerTiposArchivo()
+    this.formulario.controls['tipoArchivo'].valueChanges.subscribe({
+      next: (idTipoArchivo) => {
+        if (idTipoArchivo !== "") {
+          const tipoArchivo = this.tiposArchivo.find(tipoArcHivo => tipoArcHivo.id === idTipoArchivo)
+          if (!tipoArchivo || tipoArchivo.manual == null){
+            this.manualActivo = undefined;
+            return
+          };
+          this.manualActivo = tipoArchivo.manual
+        } else {
+          this.manualActivo = undefined;
+        }
+      }
+    })
   }
 
-  public obtenerTiposArchivo(){
+  public obtenerTiposArchivo() {
     this.servicioArchivo.obtenerTiposArchivoPorEmpresa(this.idEmpresa!).subscribe({
       next: (respuesta) => {
         this.tiposArchivo = respuesta.archivos
@@ -54,12 +69,12 @@ export class PaginaCargaArchivosComponent implements OnInit {
     })
   }
 
-  public abrirPopupProcesando(){
+  public abrirPopupProcesando() {
     this.popupProcesando.abrir()
   }
 
-  public enviarArchivo(esPrueba: boolean):void{
-    if(this.formulario.invalid){
+  public enviarArchivo(esPrueba: boolean): void {
+    if (this.formulario.invalid) {
       marcarFormularioComoSucio(this.formulario)
       console.log(this.formulario.controls)
       throw Error('Formulario inválido');
@@ -80,19 +95,25 @@ export class PaginaCargaArchivosComponent implements OnInit {
         this.abrirPopupProcesando()
       },
       error: (error: HttpErrorResponse) => {
-        if(error.status === 415){
+        if (error.status === 415) {
           this.formatoInvalido = true;
-        }else{ }
+        } else { }
       }
     })
   }
 
-  public cargarOtroArchivo(){
+  descargarManual() {
+    if (this.manualActivo) {
+      this.servicioArchivo.descargarManual(this.manualActivo)
+    }
+  }
+
+  public cargarOtroArchivo() {
     this.formatoInvalido = false
     this.formulario.reset()
   }
 
-  public verHistorialDeNovedades(){
+  public verHistorialDeNovedades() {
     this.router.navigateByUrl('/administrar/historial_novedades')
   }
 }

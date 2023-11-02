@@ -22,7 +22,7 @@
                   [validacion]="'required'"
                   [texto]="'Requerido.'"></app-validacion>
                 </fieldset>
-                <label class="fs-12px descarga" *ngIf="this.formulario.controls['tipoArchivo'].value !== ''">
+                <label class="fs-12px descarga" *ngIf="this.formulario.controls['tipoArchivo'].value !== '' && manualActivo" (click)="descargarManual()">
                   <img src="./assets/img/flecha-abajo.png" class="img-fluid" style="width:12%;"> Descargar Manual de Uso
                 </label>
               </div>
