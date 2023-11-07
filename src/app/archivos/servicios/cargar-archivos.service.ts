@@ -61,6 +61,7 @@ export class CargarArchivosService extends Autenticable {
     formData.append('prefijoParametrizacion', peticion.prefijoParametrizacion)
     formData.append('formatoId', peticion.formatoId)
     formData.append('descripcion', peticion.descripcion)
+    formData.append('tipo', peticion.tipoServicio.toString())
     return this.clienteHttp.patch(
       `${this.HOST}${endpoint}`,
       formData,
