@@ -14,7 +14,7 @@
           <div class="col-6">
             <fieldset>
               <label for="usuario" class="fw-semibold">Usuario</label>
-              <input class="form-control" formControlName="usuario" type="number" required>
+              <input class="form-control" formControlName="usuario" type="text" required>
               <span class="validacion"
                     *ngIf="this.formulario.controls['usuario'].errors &&
                     this.formulario.controls['usuario'].dirty && this.formulario.controls['usuario'].errors['required']">

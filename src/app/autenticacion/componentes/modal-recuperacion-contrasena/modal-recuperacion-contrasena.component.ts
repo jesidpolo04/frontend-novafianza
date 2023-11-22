@@ -18,7 +18,7 @@ export class ModalRecuperacionContrasenaComponent implements OnInit {
 
   constructor(private servicioModal: NgbModal, private servicioAutenticacion: AutenticacionService) {
     this.formulario = new FormGroup({
-      usuario: new FormControl('', [Validators.required, Validators.pattern("[0-9]{8,10}")]),
+      usuario: new FormControl('', [Validators.required, Validators.pattern("[0-9]{6,10}")]),
       correo: new FormControl('', [Validators.required, Validators.email]),
     })
   }
@@ -35,6 +35,7 @@ export class ModalRecuperacionContrasenaComponent implements OnInit {
 
   public recuperacion():void {
     if (this.formulario.invalid) {
+      console.log(this.formulario.controls)
       this.marcarFormularioComoSucio();
     }
     if (this.formulario.valid) {
